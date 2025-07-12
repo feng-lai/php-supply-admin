@@ -1,0 +1,450 @@
+<style type="text/css">
+    .sm-st {
+        background: #fff;
+        padding: 20px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        margin-bottom: 20px;
+    }
+
+    .sm-st-icon {
+        width: 60px;
+        height: 60px;
+        display: inline-block;
+        line-height: 60px;
+        text-align: center;
+        font-size: 30px;
+        background: #eee;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        float: left;
+        margin-right: 10px;
+        color: #fff;
+    }
+
+    .sm-st-info {
+        padding-top: 2px;
+    }
+
+    .sm-st-info span {
+        display: block;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .orange {
+        background: #fa8564 !important;
+    }
+
+    .tar {
+        background: #45cf95 !important;
+    }
+
+    .sm-st .green {
+        background: #86ba41 !important;
+    }
+
+    .pink {
+        background: #AC75F0 !important;
+    }
+
+    .yellow-b {
+        background: #fdd752 !important;
+    }
+
+    .stat-elem {
+
+        background-color: #fff;
+        padding: 18px;
+        border-radius: 40px;
+
+    }
+
+    .stat-info {
+        text-align: center;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-top: -5px;
+        padding: 8px;
+        -webkit-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
+        font-style: italic;
+    }
+
+    .stat-icon {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .st-red {
+        background-color: #F05050;
+    }
+
+    .st-green {
+        background-color: #27C24C;
+    }
+
+    .st-violet {
+        background-color: #7266ba;
+    }
+
+    .st-blue {
+        background-color: #23b7e5;
+    }
+
+    .stats .stat-icon {
+        color: #28bb9c;
+        display: inline-block;
+        font-size: 26px;
+        text-align: center;
+        vertical-align: middle;
+        width: 50px;
+        float: left;
+    }
+
+    .stat {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+    }
+
+    .stat .value {
+        font-size: 20px;
+        line-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+    }
+
+    .stat .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 5px 0;
+    }
+
+    .stat.lg .value {
+        font-size: 26px;
+        line-height: 28px;
+    }
+
+    .stat-col {
+        margin:0 0 10px 0;
+    }
+    .stat.lg .name {
+        font-size: 16px;
+    }
+
+    .stat-col .progress {
+        height: 2px;
+    }
+
+    .stat-col .progress-bar {
+        line-height: 2px;
+        height: 2px;
+    }
+
+    .item {
+        padding: 30px 0;
+    }
+
+
+    #statistics .panel {
+        min-height: 150px;
+    }
+
+    #statistics .panel h5 {
+        font-size: 14px;
+    }
+    .panel-title{
+        font-size: 20px !important;
+        text-align: center !important;
+    }
+    .panel-content{
+        text-align: center !important;
+    }
+    .label-primary{
+        background-color: #f5f5f505 !important;
+    }
+
+    .pull-right {
+        float: none !important;
+    }
+    h1, .h1 {
+        font-size: 40px;
+    }
+    .left-line{
+        width: 5px;
+        height: 20px;
+        background-color: #4480f4 ;
+        display: block;
+        margin-right: 10px;
+    }
+    #form1{
+        display: flex;
+        align-items: center;
+    }
+    #form1 a{
+        margin-left: 10px;
+    }
+    .title{
+        display: flex;
+        align-items: center;
+    }
+    .title i{
+        background-color: #3cdb86 ;
+    }
+    .chart{
+        border: 1px solid #cccccc;
+        margin: 10px 0;
+        padding-bottom: 20px;
+    }
+</style>
+<div class="panel panel-default panel-intro ">
+    <div class="panel-heading">
+        {:build_heading(null, false)}
+    </div>
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+
+                <div class="row" style="margin-top:15px;" id="statistics">
+
+                    <div class="col-lg-12" style="height: 100px;">
+                        <div class="row" >
+                            <div class="col-xs-12">
+                                <div class="panel panel-default panel-intro panel-statistics">
+                                    <div class="panel-body">
+                                        <div id="datefilter">
+
+                                            <form id="form1" action="" method="get" role="form" novalidate="novalidate" data-toggle="validator" class="form-inline nice-validator form-horizontal n-default n-bootstrap">
+                                                <i class="left-line"></i>财务统计
+
+                                                <div class="form-group" style="margin: 0;margin-left: 20px;">
+                                                    <div>
+                                                        <select class="form-control selectpicker" name="time" style="width:200px;">
+                                                            <option value="" {$time == ''?'selected':''}>选择时间</option>
+                                                            <option value="{$today}" {$time == $today?'selected':''}>今日</option>
+                                                            <option value="{$week}" {$time == $week?'selected':''}>本周</option>
+                                                            <option value="{$month}" {$time == $month?'selected':''}>本月</option>
+                                                            <option value="{$year}" {$time == $year?'selected':''}>今年</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" style="margin-left: 20px">
+                                                    <div>
+                                                        <input type="submit" class="btn btn-success btn-block" value="确定"/>
+                                                    </div>
+                                                </div>
+                                                <!--
+                                                <a href="javascript:;" data-time="" class="btn {$time == ''?'btn-danger':'btn-success'} btn-filter">全部</a>
+
+                                                <a href="javascript:;" data-time="{$today}" class="btn {$time == $today?'btn-danger':'btn-success'} btn-filter">今日</a>
+
+                                                <a href="javascript:;" data-time="{$week}" class="btn {$time == $week?'btn-danger':'btn-success'} btn-filter">本周</a>
+
+                                                <a href="javascript:;" data-time="{$month}" class="btn {$time == $month?'btn-danger':'btn-success'} btn-filter">本月</a>
+
+                                                <a href="javascript:;" data-time="{$year}" class="btn {$time == $year?'btn-danger':'btn-success'} btn-filter">今年</a>
+                                                -->
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+
+                    <div class="col-xs-6 col-md-2" style="width: 20% !important;">
+                        <div class="panel bg-blue-gradient no-border" style="background: #3cdb86 !important;">
+                            <div class="panel-body">
+                                <div class="panel-title">
+                                    <span class="label label-primary pull-right">专家服务总收入</span>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h1 class="no-margins">{$services_count}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-6 col-md-2" style="width: 20% !important;">
+                        <div class="panel bg-blue-gradient no-border" style="background: #4480f4 !important;">
+                            <div class="panel-body">
+                                <div class="panel-title">
+                                    <span class="label label-primary pull-right">平台服务费收入</span>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h1 class="no-margins">{$platform}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2" style="width: 20% !important;">
+                        <div class="panel bg-blue-gradient no-border" style="background: #083045 !important;">
+                            <div class="panel-body">
+                                <div class="panel-title">
+                                    <span class="label label-primary pull-right">代扣专家税金及发票税费</span>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h1 class="no-margins">{$rate_fee}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2" style="width: 20% !important;">
+                        <div class="panel bg-blue-gradient no-border" style="background: #f66932 !important;">
+                            <div class="panel-body">
+                                <div class="panel-title">
+                                    <span class="label label-primary pull-right">发放专家服务费</span>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h1 class="no-margins">{$services_count_true}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2" style="width: 20% !important;">
+                        <div class="panel bg-blue-gradient no-border" style="background: #ffdf25 !important;">
+                            <div class="panel-body">
+                                <div class="panel-title">
+                                    <span class="label label-primary pull-right">资金结余</span>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h1 class="no-margins">{$services_count_false}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row chart">
+                    <form class="col-lg-12" style="display: flex; align-items: center; background-color: #f4f5f9;    padding-top: 20px; margin-bottom: 20px;">
+                        <div class="form-group" style="margin-right: 20px">
+                            <div>
+                                <select class="form-control selectpicker" name="chart_day" style="width:200px;">
+                                    <option value="" {$chart_day == ''?'selected':''}>选择最近天数</option>
+                                    <option value="{$day3}" {$chart_day == $day3?'selected':''}>最近30天</option>
+                                    <option value="{$day6}" {$chart_day == $day6?'selected':''}>最近60天</option>
+                                    <option value="{$day9}" {$chart_day == $day9?'selected':''}>最近90天</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <select class="form-control selectpicker" name="chart_time" style="width:200px;">
+                                    <option value="" {$chart_time == ''?'selected':''}>选择时间</option>
+                                    <option value="{$today}" {$chart_time == $today?'selected':''}>今日</option>
+                                    <option value="{$week}" {$chart_time == $week?'selected':''}>本周</option>
+                                    <option value="{$month}" {$chart_time == $month?'selected':''}>本月</option>
+                                    <option value="{$year}" {$chart_time == $year?'selected':''}>今年</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-left: 20px">
+                                <div>
+                                    <input type="submit" class="btn btn-success btn-block" value="确定"/>
+                                </div>
+                        </div>
+                    </form>
+
+
+                    <div class="col-lg-12">
+                        <div class="title"><i class="left-line"></i>平台服务费营收趋势图</div>
+                        <div id="echart" class="btn-refresh" style="height:500px;width:100%;"></div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4" style="margin-bottom: 20px;border: 1px solid #cccccc; padding: 0;margin-left: 15px">
+                        <form class="col-lg-12" style="display: flex; align-items: center; background-color: #f4f5f9; padding-top: 20px; margin-bottom: 20px;">
+                            <div class="form-group" style="margin-right: 20px">
+                                <div>
+                                    <input type="text" class="form-control datetimepicker" name="table_range" data-locale='{"format":"YYYY-MM-DD"}' style="width: 200px" value="{$table_range}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <select class="form-control selectpicker" name="table_time" style="width:200px;">
+                                        <option value="" {$table_time == ''?'selected':''}>选择时间</option>
+                                        <option value="{$today}" {$table_time == $today?'selected':''}>今日</option>
+                                        <option value="{$week}" {$table_time == $week?'selected':''}>本周</option>
+                                        <option value="{$month}" {$table_time == $month?'selected':''}>本月</option>
+                                        <option value="{$year}" {$table_time == $year?'selected':''}>今年</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-left: 20px">
+                                <div>
+                                    <input type="submit" class="btn btn-success btn-block" value="确定"/>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="panel panel-default panel-intro panel-statistics">
+                            <div class="panel-body">
+                                <table class="table" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>时间</th>
+                                        <th>已完成订单总服务费</th>
+                                        <th>平台服务费</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {foreach name="data" item="vo"}
+                                        <tr>
+                                            <td><p>{$vo.date}</p></td>
+                                            <td><p>{$vo.real_total}</p></td>
+                                            <td><p>{$vo.sys_fee}</p></td>
+                                        </tr>
+                                    {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

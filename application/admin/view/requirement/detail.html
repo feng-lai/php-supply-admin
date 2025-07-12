@@ -1,0 +1,954 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="col-xs-12 col-sm-12">
+        <h1>{$row.title}<span class="btn btn-warning" style="margin-left:40px;">{$row.status_text}</span></h1>
+        <div class="" style="display:flex;">
+
+            <div class="line">
+                <div class="title">用户信息</div>
+                <div class="right">
+                    {if condition="$row.user.avatar"}
+                    <image src="{$row.user.avatar}" style="width: 40px;height: 40px;border-radius: 50%;"></image>
+                    {else /}
+                    <i class="layui-icon layui-icon-username" style="font-size: 35px;"></i>
+                    {/if}
+                </div>
+                <div class="right">
+                    <span style="font-size:12px;text-align:center;">{$row.user.id_no_name}</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="" style="display:flex;">
+            <div class="line">
+                <div class="title">用户主体</div>
+                <div class="right">
+                    <span style="text-align:center;">{$row.user.typedata == 1?'个人':'企业'}</span>
+                </div>
+                <div class="right">
+                    <span style="text-align:center;">创建时间：{$row.createtime|date="Y-m-d H:i:s",###}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12">
+
+        <div class="panel panel-default panel-intro">
+            <form id="demo-form">
+                <input type="hidden" name="id" value="{$row.id}" id="ids"/>
+                <input type="hidden" name="s_files" value="{$row.s_files}" id="s_files"/>
+                <input type="hidden" name="s_word" value="{$row.s_word}" id="s_word"/>
+
+                <div class="panel-body body1">
+                    <div class="title">
+                        <h3>需求信息</h3>
+                    </div>
+                    <div class="content">
+                        <div class="line">
+                            <div class="title">需求编号</div>
+                            <div class="right">
+                                {$row.sn}
+                            </div>
+
+                            <div class="title">启动时间：</div>
+                            <div class="right">
+                                {$row.begin}
+                            </div>
+                            <div class="title">完成时间：</div>
+                            <div class="right">
+                                {$row.end}
+                            </div>
+                            <div class="title">服务费起点：</div>
+                            <div class="right">
+                                {$row.price}
+                            </div>
+                        </div>
+                        <div class="line">
+                            <div class="title">地区要求</div>
+                            <div class="right">
+                                {foreach name="area" item="vo"}
+                                <a class="btn btn-primary">{$vo['name']}</a>
+                                {/foreach}
+                            </div>
+                        </div>
+                        <div class="line">
+                            <div class="title">行业要求</div>
+                            <div class="right">
+                                {foreach name="industry" item="vo"}
+                                <a class="btn btn-primary">{$vo['name']}</a>
+                                {/foreach}
+                            </div>
+                        </div>
+                        <div class="line">
+                            <div class="title">技能要求</div>
+                            <div class="right">
+                                {foreach name="skill" item="vo"}
+                                <a class="btn btn-primary">{$vo['name']}</a>
+                                {/foreach}
+                            </div>
+                        </div>
+                        <div class="line">
+                            <div class="title">需求关键词</div>
+                            <div class="right">
+                                {foreach name="row.keywords_arr" item="vo"}
+                                <span class="layui-badge-rim">{$vo}</span>
+                                {/foreach}
+                            </div>
+                        </div>
+
+                        <div class="line">
+                            <div class="title">需求描述</div>
+                            <div class="right">
+                                {if $row.status == 0}
+                                <textarea id="c-content" class="form-control " rows="5" name="content" cols="50"
+                                          data-rule="required">{$row.content|htmlentities}</textarea>
+                                {else}
+                                {$row.content}
+                                {/if}
+                            </div>
+                        </div>
+
+                        <div class="line">
+                            <div class="title">申请附件</div>
+                            <input type="hidden" value="{$row.files|htmlentities}" name="files" id="files">
+                            <div class="right">
+                                {if $row.status == 0}
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn" id="upload_files_arr">上传</button>
+                                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                        <div class="layui-upload-list" id="preview">
+                                            {foreach name="row.files_arr" item="vo"}
+                                            <li title="{$vo.name}">
+                                                <a href="javascript:download_files('{$vo.url|htmlentities|cdnurl}','{$vo.name}')"><i
+                                                        class="fa fa-file"
+                                                        style="font-size: -webkit-xxx-large;"></i></a><a
+                                                    href="javascript:void(0)"
+                                                    class="btn btn-danger btn-xs btn-trash"
+                                                    data-url="{$vo.url|htmlentities}"><i
+                                                    class="fa fa-trash"></i></a></li>
+                                            {/foreach}
+                                        </div>
+                                    </blockquote>
+                                </div>
+                                {else}
+                                {foreach name="row.files_arr" item="vo"}
+                                <a href="javascript:download_files('{$vo.url|htmlentities|cdnurl}','{$vo.name}')"><i
+                                        class="fa fa-file" style="font-size: -webkit-xxx-large;"></i></a>
+                                {/foreach}
+                                {/if}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                {if condition="$row.status eq '6'"}
+                <div class="panel-body body1">
+                    <div class="title">
+                        <h3>审核信息</h3>
+                    </div>
+
+                    <div class="line">
+                        <div class="title">审核状态</div>
+                        <div class="right" style="color: red">审核未通过</div>
+                    </div>
+                    <div class="line">
+                        <div class="title">未通过原因</div>
+                        <div class="right">{$row.refuse_reason}</div>
+                    </div>
+
+                    <div class="line">
+                        <div class="title">平台建议</div>
+                        <div class="right">请重新编辑发送</div>
+                    </div>
+                </div>
+                {/if}
+
+                {if condition="$row.status eq '5'"}
+                <div class="panel-body body1">
+                    <div class="title">
+                        <h3>取消信息</h3>
+                    </div>
+
+                    <div class="line">
+                        <div class="title">取消角色</div>
+                        <div class="right">{$row.user.id_no_name}</div>
+                    </div>
+                    <div class="line">
+                        <div class="title">取消原因</div>
+                        <div class="right">{$row.cancel_reason}</div>
+                    </div>
+                </div>
+                {/if}
+                {if condition="$row.status eq '2'"}
+                <!-- 匹配中 -->
+                <div class="panel-body body1">
+                    <div class="title">
+                        <h3>专家信息</h3>
+                    </div>
+
+                    <div class="content">
+                        <p style="margin-top:10px;"><h6 style="color:#999;">平台主动推荐：</h6></p>
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="150">
+                                <col width="200">
+                                <col width="120">
+                                <col width="150">
+                                <col width="250">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>专家昵称</th>
+                                <th>参与状态</th>
+                                <th>专家申请信息</th>
+                                <th>附件信息</th>
+                                <th>婉拒/取消原因</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach name="row.requirement_specialist_1" item="vo"}
+                            <tr>
+                                <th>{$vo.nickname}</th>
+                                <th>{$vo.status_text}{$vo.status=='1'?",".$vo.vertify_status_text:""}</th>
+                                <th>{$vo.desc}</th>
+                                <th>
+                                    {if condition="$vo.status gt '0'"}
+                                    {foreach name="vo.files_arr" item="vo2"}
+                                    {if $vo2 !== ''}<a
+                                        href="javascript:download_files('{$vo2.url|htmlentities|cdnurl}','{$vo2.name}')"><i
+                                        class="fa fa-file" style="font-size: -webkit-xxx-large;"></i></a>{/if}
+                                    {/foreach}
+                                    {/if}
+                                </th>
+                                <th>{$vo.reason}</th>
+                                <th>
+                                    <a href="/kfSypMgbqw.php/specialist/edit/ids/{$vo.spec_id}"
+                                       class="btn btn-xs btn-primary btn-dialog" title="详情" data-table-id="table"
+                                       data-field-index="8" data-row-index="0" data-button-index="0"><i class=""></i>
+                                        查看专家详情</a>
+                                    <!-- 审核专家参与申请 -->
+                                    {if condition="$vo.status eq '1' and $vo.vertify_status eq '0'"}
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-xs btn-success btn-click specialistpass"
+                                       id="specialistpass-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-row-index="0" data-button-index="1"><i
+                                            class=""></i> 通过</a>
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-xs btn-primary btn-click specialistnopass"
+                                       id="specialistnopass-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-row-index="0" data-button-index="1"><i
+                                            class=""></i> 不通过</a>
+                                    {/if}
+
+                                    {if condition="$vo.vertify_status eq '2'"}
+                                    <!--<a href="javascript:void(0);" class="btn btn-xs btn-success btn-click click_reason" data-reason="{$vo['reason']}"  title="未通过" data-table-id="table" data-field-index="{$vo.id}" data-row-index="0" data-button-index="1"><i class=""></i>未通过</a>-->
+                                    {/if}
+                                    <!-- 沟通审核 -->
+                                    {if condition="$vo.status eq '3' and $vo.meeting_id neq null and $vo.meeting_status
+                                    eq 0"}
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-success btn-click meetingpass"
+                                       id="meetingpass-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-meeting-id="{$vo.meeting_id}"
+                                       data-msg="{$vo.meeting_desc}" data-row-index="0" data-button-index="1"><i
+                                            class=""></i> 沟通审核</a>
+
+                                    {/if}
+                                    {if condition="$vo.status eq '3' and $vo.meeting_id neq null and $vo.meeting_confirm
+                                    eq 1"}
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-primary btn-click meetingdetail"
+                                       id="meetingdetail-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-meeting-id="{$vo.meeting_id}"
+                                       data-msg="{$vo.meeting_desc}" data-row-index="0" data-button-index="1"
+                                       data-info="{$vo.meeting_info}"><i class=""></i> 沟通信息</a>
+
+                                    {/if}
+
+                                    {if condition="$vo.status eq '3' and $vo.meeting_id neq null and $vo.meeting_confirm
+                                    eq 2"}
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-primary btn-click click_reason"
+                                       id="meetingdetail-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-meeting-id="{$vo.meeting_id}"
+                                       data-msg="{$vo.meeting_desc}" data-row-index="0" data-button-index="1"
+                                       data-reason="{$vo.refuse_desc}"><i class=""></i> 拒绝沟通信息</a>
+                                    {/if}
+
+                                </th>
+                            </tr>
+                            {/foreach}
+                            {if condition="count($row['requirement_specialist_1']) eq 0"}
+                            <tr>
+                                <th colspan="6" style="text-align:center;">暂无数据</th>
+                            </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                        <p style="margin-top:10px;"><h6 style="color:#999;">用户主动预约：</h6></p>
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="150">
+                                <col width="200">
+                                <col width="120">
+                                <col width="150">
+                                <col width="250">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>专家昵称</th>
+                                <th>参与状态</th>
+                                <th>专家申请信息</th>
+                                <th>附件信息</th>
+                                <th>婉拒/取消原因</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach name="row.requirement_specialist_2" item="vo"}
+                            <tr>
+                                <th>{$vo.nickname}</th>
+                                <th>{$vo.status_text}{$vo.status=='1'?",".$vo.vertify_status_text:""}</th>
+                                <th>{$vo.desc}</th>
+                                <th>
+                                    {if condition="$vo.status gt '0'"}
+                                    {foreach name="vo.files_arr" item="vo2"}
+                                    {if $vo2 !== ''}<a
+                                        href="javascript:download_files('{$vo2.url|htmlentities|cdnurl}','{$vo2.name}')"><i
+                                        class="fa fa-file" style="font-size: -webkit-xxx-large;"></i></a>{/if}
+                                    {/foreach}
+                                    {/if}
+                                </th>
+                                <th>{$vo.reason}</th>
+                                <th>
+                                    <a href="/kfSypMgbqw.php/specialist/edit/ids/{$vo.spec_id}"
+                                       class="btn btn-xs btn-primary btn-dialog" title="详情" data-table-id="table"
+                                       data-field-index="8" data-row-index="0" data-button-index="0"><i class=""></i>
+                                        查看专家详情</a>
+                                    <!-- 审核专家参与申请 -->
+                                    {if condition="$vo.status eq '1' and $vo.vertify_status eq '0'"}
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-xs btn-success btn-click specialistpass"
+                                       id="specialistpass-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-row-index="0" data-button-index="1"><i
+                                            class=""></i> 通过</a>
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-xs btn-primary btn-click specialistnopass"
+                                       id="specialistnopass-{$vo.id}" title="审核不通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-row-index="0" data-button-index="1"><i
+                                            class=""></i> 不通过</a>
+
+                                    {/if}
+                                    {if condition="$vo.vertify_status eq '2'"}
+                                    <!--<a href="javascript:void(0);" class="btn btn-xs btn-success btn-click click_reason" data-reason="{$vo['reason']}"  title="未通过" data-table-id="table" data-field-index="{$vo.id}" data-row-index="0" data-button-index="1"><i class=""></i>未通过</a>-->
+                                    {/if}
+                                    <!-- 沟通审核 -->
+                                    {if condition="$vo.status eq '3' and $vo.meeting_id neq null and $vo.meeting_status
+                                    eq 0"}
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-success btn-click meetingpass"
+                                       id="meetingpass-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-meeting-id="{$vo.meeting_id}"
+                                       data-msg="{$vo.meeting_desc}" data-row-index="0" data-button-index="1"><i
+                                            class=""></i> 沟通审核</a>
+
+                                    {/if}
+                                    {if condition="$vo.status eq '3' and $vo.meeting_id neq null and $vo.meeting_confirm
+                                    eq 1"}
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-primary btn-click meetingdetail"
+                                       id="meetingdetail-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-meeting-id="{$vo.meeting_id}"
+                                       data-msg="{$vo.meeting_desc}" data-row-index="0" data-button-index="1"
+                                       data-info="{$vo.meeting_info}"><i class=""></i> 沟通信息</a>
+                                    {/if}
+
+                                    {if condition="$vo.status eq '3' and $vo.meeting_id neq null and $vo.meeting_confirm
+                                    eq 2"}
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-primary btn-click click_reason"
+                                       id="meetingdetail-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-meeting-id="{$vo.meeting_id}"
+                                       data-msg="{$vo.meeting_desc}" data-row-index="0" data-button-index="1"
+                                       data-reason="{$vo.refuse_desc}"><i class=""></i> 拒绝沟通信息</a>
+                                    {/if}
+                                </th>
+                            </tr>
+                            {/foreach}
+                            {if condition="count($row['requirement_specialist_2']) eq 0"}
+                            <tr>
+                                <th colspan="6" style="text-align:center;">暂无数据</th>
+                            </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                        <p style="margin-top:10px;"><h6 style="color:#999;">专家主动申请：</h6></p>
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="150">
+                                <col width="200">
+                                <col width="120">
+                                <col width="150">
+                                <col width="250">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>专家昵称</th>
+                                <th>参与状态</th>
+                                <th>专家申请信息</th>
+                                <th>附件信息</th>
+                                <th>婉拒/取消原因</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach name="row.requirement_specialist_3" item="vo"}
+                            <tr>
+                                <th>{$vo.nickname}</th>
+                                <th>{$vo.status_text}{$vo.status=='1'?",".$vo.vertify_status_text:""}</th>
+                                <th>{$vo.desc}</th>
+                                <th>
+                                    {if condition="$vo.status gt '0'"}
+                                    {foreach name="vo.files_arr" item="vo2"}
+                                    {if $vo2 !== ''}<a
+                                        href="javascript:download_files('{$vo2.url|htmlentities|cdnurl}','{$vo2.name}')"><i
+                                        class="fa fa-file" style="font-size: -webkit-xxx-large;"></i></a>{/if}
+                                    {/foreach}
+                                    {/if}
+                                </th>
+                                <th>{$vo.reason}</th>
+                                <th>
+                                    <a href="/kfSypMgbqw.php/specialist/edit/ids/{$vo.spec_id}"
+                                       class="btn btn-xs btn-primary btn-dialog" title="详情" data-table-id="table"
+                                       data-field-index="8" data-row-index="0" data-button-index="0"><i class=""></i>
+                                        查看专家详情</a>
+                                    <!-- 审核专家参与申请 -->
+                                    {if condition="$vo.status eq '1' and $vo.vertify_status eq '0'"}
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-xs btn-success btn-click specialistpass"
+                                       id="specialistpass-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-row-index="0" data-button-index="1"><i
+                                            class=""></i> 通过</a>
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-xs btn-primary btn-click specialistnopass"
+                                       id="specialistnopass-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-row-index="0" data-button-index="1"><i
+                                            class=""></i> 不通过</a>
+
+                                    {/if}
+
+                                    {if condition="$vo.meeting_confirm eq '2'"}
+                                    <!--<a href="javascript:void(0);" class="btn btn-xs btn-success btn-click click_reason" data-reason="{$vo['refuse_desc']}"  title="未通过" data-table-id="table" data-field-index="{$vo.id}" data-row-index="0" data-button-index="1"><i class=""></i>未通过</a>-->
+                                    {/if}
+                                    <!-- 沟通审核 -->
+                                    {if condition="$vo.status eq '3' and $vo.meeting_id neq null and $vo.meeting_status
+                                    eq 0"}
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-success btn-click meetingpass"
+                                       id="meetingpass-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-meeting-id="{$vo.meeting_id}"
+                                       data-msg="{$vo.meeting_desc}" data-row-index="0" data-button-index="1"><i
+                                            class=""></i> 沟通审核</a>
+
+                                    {/if}
+                                    {if condition="$vo.status eq '3' and $vo.meeting_id neq null and $vo.meeting_confirm
+                                    eq 1"}
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-primary btn-click meetingdetail"
+                                       id="meetingdetail-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-meeting-id="{$vo.meeting_id}"
+                                       data-msg="{$vo.meeting_desc}" data-row-index="0" data-button-index="1"
+                                       data-info="{$vo.meeting_info}"><i class=""></i> 沟通信息</a>
+
+                                    {/if}
+                                    {if condition="$vo.status eq '3' and $vo.meeting_id neq null and $vo.meeting_confirm
+                                    eq 2"}
+                                    <a href="javascript:void(0);" class="btn btn-xs btn-primary btn-click click_reason"
+                                       id="meetingdetail-{$vo.id}" title="审核通过" data-table-id="table"
+                                       data-field-index="{$vo.id}" data-meeting-id="{$vo.meeting_id}"
+                                       data-msg="{$vo.meeting_desc}" data-row-index="0" data-button-index="1"
+                                       data-reason="{$vo.refuse_desc}"><i class=""></i> 拒绝沟通信息</a>
+                                    {/if}
+                                </th>
+                            </tr>
+                            {/foreach}
+                            {if condition="count($row['requirement_specialist_3']) eq 0"}
+                            <tr>
+                                <th colspan="6" style="text-align:center;">暂无数据</th>
+                            </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                {/if}
+
+                {if condition="$row.status eq '3' or $row.status eq '4'"}
+                {if $order}
+                <!-- 待确认 -->
+                <div class="panel-body body1">
+                    <div class="title">
+                        <h3>订单信息</h3>
+                    </div>
+                    <div class="content">
+                        <div class="line">
+                            <div class="title">订单编号：</div>
+                            <div class="right">{$order.sn}</div>
+                        </div>
+                        <div class="line">
+                            <div class="title">订单标题：</div>
+                            <div class="right">{$order.title}</div>
+                        </div>
+                        <div class="line">
+                            <div class="title">订单说明：</div>
+                            <div class="right">{$order.desc}</div>
+                        </div>
+                        <div class="line">
+                            <div class="title">专家来源：</div>
+                            <div class="right">
+                                {if $order.specialist_source == '0'}未匹配{/if}
+                                {if $order.specialist_source == '1'}推荐{/if}
+                                {if $order.specialist_source == '2'}预约申请{/if}
+                                {if $order.specialist_source == '3'}专家主动申请{/if}
+                            </div>
+                        </div>
+
+                        <div class="line">
+                            <div class="title">服务专家：</div>
+                            <div class="right">{$order.nickname}</div>
+                        </div>
+                        <div class="line">
+                            <div class="title">申请信息：</div>
+                            <div class="right">{$order.apply_desc}</div>
+                        </div>
+
+
+                        <div class="line">
+                            <div class="title">申请附件：</div>
+                            <div class="right">
+                                {foreach name="order.files" item="vo"}
+                                <a href="javascript:download_files('{$vo.url|htmlentities|cdnurl}','{$vo.name}')"><i
+                                        class="fa fa-file" style="font-size: -webkit-xxx-large;"></i></a>
+                                {/foreach}
+                            </div>
+                        </div>
+
+
+                        <div class="line">
+                            <div class="title">确认状态：</div>
+                            <div class="right">
+                                {if $order.apply_status == '0'}专家待确认参与1{/if}
+                                {if $order.apply_status == '1'}专家已申请参与{/if}
+                                {if $order.apply_status == '2'}待需求方确认{/if}
+                                {if $order.apply_status == '3'}需求方确认{/if}
+                                {if $order.apply_status == '4'}已拒绝{/if}
+                                {if $order.apply_status == '5'}已取消{/if}
+                                {if $order.apply_status == '6'}已失效{/if}
+                            </div>
+                        </div>
+
+                        <div class="line">
+                            <div class="title">是否需要验收：</div>
+                            <div class="right">
+                                {if $order.need_acceptance == '0'}不需要{/if}
+                                {if $order.need_acceptance == '1'}需要{/if}
+                            </div>
+                        </div>
+
+
+                        <div class="line">
+                            <div class="title">付款期次：</div>
+                            <div class="right">
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col width="150">
+                                        <col width="150">
+                                        <col width="200">
+                                        <col width="120">
+                                        <col width="150">
+                                        <col width="250">
+                                        <col>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>付款节点</th>
+                                        <th>付款描述</th>
+                                        <th>起止时间</th>
+                                        <th>付款金额</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {foreach name="order.pay" item="vo"}
+                                    <tr>
+                                        <th>{$vo.idx}</th>
+                                        <th>{$vo.desc}</th>
+                                        <th>{$vo.begin} ~ {$vo.end}</th>
+                                        <th>{$vo.total}</th>
+                                    </tr>
+                                    {/foreach}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div class="line">
+                            <div class="title">创建时间：</div>
+                            <div class="right">{:date("Y年m月d日",$order.createtime)}</div>
+                        </div>
+
+                        <div class="line">
+                            <div class="title">服务协议：</div>
+                            <div class="right">
+                                <a href="/kfSypMgbqw.php/general/config/detail/name/POTSABTP" style="color: blue;"
+                                   class="btn-dialog">《服务双方协议规定》</a>
+                            </div>
+                        </div>
+                        <script>
+
+                        </script>
+
+                        <div class="line">
+                            <div class="title">查看订单：</div>
+                            <div class="right">
+                                <a href="/kfSypMgbqw.php/order/order/edit/ids/{$order.id}"
+                                   class="btn btn-xs btn-primary btn-dialog" title="查看订单" data-table-id="table"
+                                   data-field-index="8" data-row-index="0" data-button-index="0"><i class=""></i>
+                                    查看订单</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {/if}
+                {/if}
+            </form>
+
+        </div>
+    </div>
+    {if condition="$row.status eq 0"}
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8 text-center">
+            <button type="submit" id="nopass" class="btn btn-default btn-embossed" style="margin-right:20px;">未通过
+            </button>
+            <button type="submit" id="pass" class="btn btn-primary btn-embossed">审核通过</button>
+        </div>
+    </div>
+    {/if}
+
+    {if condition="$row.status eq '1'"}
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8 text-center">
+            <button type="submit" id="novs" data-id="{$row.id}" class="btn btn-default btn-embossed"
+                    style="margin-right:20px;">跳过推荐
+            </button>
+            <button type="submit" id="vs" class="btn btn-primary btn-embossed" data-id="{$row.id}">立即推荐</button>
+        </div>
+    </div>
+    {/if}
+
+    <div id="layer-info" class="layer-photos-demo" style="display:none;padding-top:20px;">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label" style="width:100px;">反馈信息</label>
+            <div class="layui-input-block">
+                <textarea id="text" name="desc" placeholder="请填写会议链接" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+    <!-- 专家推荐 -->
+    <div class="layer-photos-demo" style="display:none;padding-top:20px;padding:20px;">
+        <table class="layui-table">
+            <colgroup>
+                <col width="50">
+                <col width="50">
+                <col width="100">
+                <col width="120">
+                <col width="100">
+                <col width="100">
+                <col width="100">
+                <col width="150">
+                <col width="120">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>ID</th>
+                <th>昵称</th>
+                <th>手机</th>
+                <th>真实姓名</th>
+                <th>服务评分</th>
+                <th>总订单数</th>
+                <th>关联标签</th>
+                <th>认证时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>贤心</td>
+                <td>13888888888</td>
+                <td>贤心</td>
+                <td>5</td>
+                <td>10</td>
+                <td>贤心</td>
+                <td>2016-11-29</td>
+                <td>选中</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label" style="width:100px;">匹配推荐</label>
+            <div class="layui-input-block">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body" id="layer-vs" style="display:none;">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div id="toolbar" class="toolbar">
+                        <a href="javascript:;" class="btn btn-primary btn-refresh" title="{:__('Refresh')}"><i
+                                class="fa fa-refresh"></i> </a>
+
+
+                    </div>
+                    <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                           data-operate-edit=""
+                           data-operate-del=""
+                           width="100%">
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+<style>
+    #preview {
+        display: flex;
+    }
+
+    #preview img {
+        height: 80px;
+    }
+
+    #preview li {
+        margin: 20px;
+    }
+
+    #preview li a {
+        display: block;
+    }
+
+    .dropup {
+        display: flex;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column
+    }
+
+    .line {
+        /* height:40px; */
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .line .title {
+        color: #999999;
+        min-width: 120px;
+        line-height: 40px;
+    }
+
+    .line .right {
+        color: #333333;
+        margin-right: 100px;
+        line-height: 40px;
+    }
+
+    .dropup {
+        margin-bottom: 5px;
+        margin-right: 20px;
+    }
+
+    .tdh {
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    .td {
+        height: 80px !important;;
+        line-height: 80px !important;;
+        text-align: center !important;
+    }
+</style>
+
+<script id="customformtpl" type="text/html">
+    <!--form表单必须添加form-commsearch这个类-->
+    <form action="" class="form-commonsearch">
+        <div style="border-radius:2px;margin-bottom:10px;background:#f5f5f5;padding:15px 20px;">
+            <h4>人工筛选</h4>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">搜索专家姓名、昵称、手机、ID</label>
+                        <!--隐式的operate操作符，必须携带一个class为operate隐藏的文本框,且它的data-name="字段",值为操作符-->
+                        <input class="operate" type="hidden" data-name="title" value="="/>
+                        <div>
+                            <input class="form-control" id="keywords" type="text" name="title"
+                                   placeholder="搜索专家姓名、昵称、手机、ID" value=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group col-xs-12">
+                        <label class="control-label">评分筛选</label>
+                        <input type="hidden" class="operate" data-name="rate1" value="="/>
+                        <input type="hidden" class="operate" data-name="rate2" value="="/>
+                        <div class="col-xs-12">
+                            <!--给select一个固定的高度-->
+                            <!--@formatter:off-->
+                            <div class="col-xs-5">
+                                <select id="c-1" class="form-control selectpicker" name="rate1"
+                                        style="height:31px;width:45%;">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-1">-</div>
+                            <div class="col-xs-5">
+                                <select id="c-2" class="form-control selectpicker" name="rate2"
+                                        style="height:31px;width:45%;">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5" selected>5</option>
+                                </select>
+                            </div>
+                            <!--@formatter:on-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">认证时间</label>
+                        <input type="hidden" class="operate" data-name="createtime" value="RANGE"/>
+                        <div>
+                            <input type="text" class="form-control datetimerange" name="createtime" value=""/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">标签筛选</label>
+                        <input type="hidden" class="operate" data-name="tag" value="in"/>
+                        <div>
+                            <input type="text" class="form-control tag" name="tag" value=""/>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">-->
+
+                <!--                    &lt;!&ndash;这里添加68px是为了避免刷新时出现元素错位闪屏&ndash;&gt;-->
+                <!--                    <div class="form-group">-->
+                <!--                        <label class="control-label">行业</label>-->
+                <!--                        <input type="hidden" class="operate" data-name="industry_ids" value="in"/>-->
+                <!--                        <div>-->
+                <!--                            {:build_select('industry_ids', $industryData, null, ['class'=>'form-control selectpicker','multiple'=>'','required'=>'', 'data-live-search'=>"true"])}-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">-->
+                <!--                    &lt;!&ndash;这里添加68px是为了避免刷新时出现元素错位闪屏&ndash;&gt;-->
+                <!--                    <div class="form-group">-->
+                <!--                        <label class="control-label">技能</label>-->
+                <!--                        <input type="hidden" class="operate" data-name="skill_ids" value="in"/>-->
+                <!--                        <div>-->
+                <!--                            {:build_select('skill_ids', $skillData, null, ['class'=>'form-control selectpicker','multiple'=>'','required'=>'', 'data-live-search'=>"true"])}-->
+
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">-->
+                <!--                    &lt;!&ndash;这里添加68px是为了避免刷新时出现元素错位闪屏&ndash;&gt;-->
+                <!--                    <div class="form-group">-->
+                <!--                        <label class="control-label">区域</label>-->
+                <!--                        <input type="hidden" class="operate" data-name="area_ids" value="in"/>-->
+                <!--                        <div>-->
+                <!--                            {:build_select('area_ids', $areaData, null, ['class'=>'form-control selectpicker','multiple'=>'','required'=>'', 'data-live-search'=>"true"])}-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group col-xs-12">
+                        <label class="control-label">订单量</label>
+                        <input type="hidden" class="operate" data-name="num1" value="in"/>
+                        <input type="hidden" class="operate" data-name="num2" value="in"/>
+                        <div class="col-xs-12">
+                            <!--给select一个固定的高度-->
+                            <!--@formatter:off-->
+                            <div class="col-xs-5">
+                                <input class="form-control" id="num1" type="text" name="num1" placeholder="请输入"
+                                       value=""/>
+                            </div>
+                            <div class="col-xs-1">-</div>
+                            <div class="col-xs-5">
+                                <input class="form-control" id="num2" type="text" name="num2" placeholder="请输入"
+                                       value=""/>
+                            </div>
+                            <!--@formatter:on-->
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="submit" class="btn btn-success btn-block" value="提交"/>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="reset" class="btn btn-primary btn-block" value="重置"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>

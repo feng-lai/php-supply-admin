@@ -1,0 +1,137 @@
+<div class="panel panel-default panel-intro">
+    
+    <div class="panel-heading">
+        {:build_heading(null,FALSE)}
+    </div>
+
+
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+
+                    <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                           data-operate-edit=""
+                           data-operate-del=""
+                           width="100%">
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script id="customformtpl" type="text/html">
+    <!--form表单必须添加form-commsearch这个类-->
+    <form action="" class="form-commonsearch">
+        <input class="operate" type="hidden" name="statusa" value=""/>
+        <div style="border-radius:2px;margin-bottom:10px;background:#f5f5f5;padding:15px 20px;">
+            <h4>需求管理</h4>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 ">
+                    <div class="form-group">
+                        <label class="control-label">输入需求编号、需求标题</label>
+                        <!--隐式的operate操作符，必须携带一个class为operate隐藏的文本框,且它的data-name="字段",值为操作符-->
+                        <input class="operate" type="hidden" data-name="title" value="="/>
+                        <div>
+                        <input class="form-control" id="keywords" type="text" name="title" placeholder="输入需求编号、需求标题" value=""/>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-xs-12 col-sm-6 ">
+                    <div class="form-group">
+                        <label class="control-label">发布时间</label>
+                        <input type="hidden" class="operate" data-name="createtime" value="RANGE"/>
+                        <div>
+                        <input type="text" class="form-control datetimerange" name="createtime" value=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 " style="min-height:68px;">
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">需求状态</label>
+                        <input type="hidden" class="operate" data-name="status" value="in"/>
+                        <div>
+                        <!--给select一个固定的高度-->
+                        <!--@formatter:off-->
+                        <select id="c-flag" class="form-control selectpicker" multiple name="status" style="height:31px;">
+                            {foreach name="statusList" item="vo"}
+                            <option value="{$key}" selected>{$vo}</option>
+                            {/foreach}
+                        </select>
+                        <!--@formatter:on-->
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-6 " style="min-height:68px;">
+
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">标签筛选</label>
+                        <input type="hidden" class="operate" data-name="tag" value="in"/>
+                        <div>
+                            <input type="text" class="form-control tag" name="tag" value="" />
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="col-xs-12 col-sm-6 ">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="submit" class="btn btn-success btn-block" value="提交"/>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="reset" class="btn btn-primary btn-block" value="重置"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-xs-12 col-sm-6 " style="min-height:68px;">
+
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">自动匹配推荐</label>
+                        <div>
+                            <input id="c-menuswitch" type="hidden" value="{$automatic_matching}">
+                            <a href="javascript:;" data-toggle="switcher" class="btn-switcher" data-input-id="c-menuswitch" data-yes="1" data-no="0" >
+                                <i class="fa fa-toggle-on text-success {eq name="$automatic_matching" value="0"}fa-flip-horizontal text-gray{/eq} fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-6 " style="min-height:68px;">
+
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">导出</label>
+                        <div>
+                            <a href="javascript:;" class="btn btn-success btn-export {:$auth->check('requirement/import')?'':'hide'}" title="{:__('Export')}" id="btn-export-file"><i class="fa fa-download"></i> {:__('Export')}</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+    <ul class="nav nav-tabs" data-field="statusa">
+            <li class="{:$Think.get.statusa === null ? 'active' : ''}"><a href="#" data-value="" data-toggle="tab">{:__('All')}</a></li>
+            {foreach name="statusList" item="vo"}
+            <li class="{:$Think.get.statusa === (string)$key ? 'active' : ''}"><a href="#{$key}" data-value="{$key}" data-toggle="tab">{$vo}</a></li>
+            {/foreach}
+        </ul>
+</script>

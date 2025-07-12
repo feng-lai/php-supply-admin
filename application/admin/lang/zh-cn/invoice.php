@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'User_id'         => '申请人',
+    'Order_id'        => '关联订单',
+    'Type'            => '发票种类',
+    'Type 1'          => '普通发票',
+    'Type 2'          => '专用发票',
+    'Title'           => '抬头',
+    'Company_number'  => '税号',
+    'Company_addr'    => '详细地址',
+    'Company_tel'     => '联系电话',
+    'Recepient_email' => '接收邮箱',
+    'Recepient_addr'  => '收票地址',
+    'Recepient_tel'   => '收票电话',
+    'Recepient_name'  => '收票人',
+    'Amount'          => '开票金额',
+    'Apply_user_id'   => '关联申请人',
+    'Rate'            => '税点(%)',
+    'Status'          => '审核状态',
+    'Status 0'        => '未审核',
+    'Set status to 0' => '设为未审核',
+    'Status 1'        => '已通过',
+    'Set status to 1' => '设为已通过',
+    'Status 2'        => '已拒绝',
+    'Set status to 2' => '设为已拒绝',
+    'Pass_time'       => '通过时间',
+    'Createtime'      => '创建时间',
+    'Updatetime'      => '更新时间',
+    'Deletetime'      => '删除时间'
+];

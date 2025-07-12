@@ -1,0 +1,166 @@
+<div class="panel panel-default panel-intro">
+    
+    <div class="panel-heading">
+        {:build_heading(null,FALSE)}
+        <ul class="nav nav-tabs" data-field="status">
+            <li class="{:$Think.get.status === null ? 'active' : ''}"><a href="#t-all" data-value="" data-toggle="tab">{:__('All')}</a></li>
+            <li class="{:$Think.get.status === '1' ? 'active' : ''}"><a href="#t-1" data-value="1" data-toggle="tab">正常</a></li>
+            <li class="{:$Think.get.status === '2' ? 'active' : ''}"><a href="#t-2" data-value="2" data-toggle="tab">禁用</a></li>
+        </ul>
+    </div>
+
+
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div id="toolbar" class="toolbar">
+                        <a href="javascript:;" class="btn btn-primary btn-refresh" title="{:__('Refresh')}" ><i class="fa fa-refresh"></i> </a>
+                        <a href="javascript:;" class="btn btn-success btn-add {:$auth->check('specialist/add')?'':'hide'}" title="{:__('Add')}" ><i class="fa fa-plus"></i> {:__('Add')}</a>
+                        <!--<a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled {:$auth->check('specialist/edit')?'':'hide'}" title="{:__('Edit')}" ><i class="fa fa-pencil"></i> {:__('Edit')}</a>
+                        <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled {:$auth->check('specialist/del')?'':'hide'}" title="{:__('Delete')}" ><i class="fa fa-trash"></i> {:__('Delete')}</a>
+                        <a href="javascript:;" class="btn btn-info btn-import dz-clickable {:$auth->check('specialist/import')?'':'hide'}" title="{:__('Import')}" ><i class="fa fa-upload"></i> {:__('Import')}</a>
+                        
+
+                        <div class="dropdown btn-group {:$auth->check('specialist/multi')?'':'hide'}">
+                            <a class="btn btn-primary btn-more dropdown-toggle btn-disabled disabled" data-toggle="dropdown"><i class="fa fa-cog"></i> {:__('More')}</a>
+                            <ul class="dropdown-menu text-left" role="menu">
+                                {foreach name="statusList" item="vo"}
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:" data-params="status={$key}">{:__('Set status to ' . $key)}</a></li>
+                                {/foreach}
+                            </ul>
+                        </div>
+
+                        <a class="btn btn-success btn-recyclebin btn-dialog {:$auth->check('specialist/recyclebin')?'':'hide'}" href="specialist/recyclebin" title="{:__('Recycle bin')}"><i class="fa fa-recycle"></i> {:__('Recycle bin')}</a>
+                        -->
+                    </div>
+                    <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                           data-operate-edit=""
+                           data-operate-del=""
+                           width="100%">
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script id="customformtpl" type="text/html">
+    <!--form表单必须添加form-commsearch这个类-->
+    <form action="" class="form-commonsearch">
+        <input class="operate" type="hidden" data-name="status" value="="/>
+        <input class="operate" type="hidden" name="status" value=""/>
+        <div style="border-radius:2px;margin-bottom:10px;background:#f5f5f5;padding:15px 20px;">
+            <h4>专家管理</h4>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">输入关键词</label>
+                        <!--隐式的operate操作符，必须携带一个class为operate隐藏的文本框,且它的data-name="字段",值为操作符-->
+                        <input class="operate" type="hidden" data-name="keywords" value="="/>
+                        <div>
+                            <input class="form-control" id="keywords" type="text" name="keywords" placeholder="输入专家姓名，昵称，手机，ID" value=""/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4" >
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">评分筛选</label>
+                        <input type="hidden" class="operate" data-name="rate1" value="="/>
+                        <input type="hidden" class="operate" data-name="rate2" value="="/>
+                        <div  class="col-xs-12">
+                            <!--给select一个固定的高度-->
+                            <!--@formatter:off-->
+                            <div  class="col-xs-5">
+                                <select id="c-1" class="form-control selectpicker" name="rate1" style="height:31px;width:45%;">
+                                    <option value="0" selected>0</option>
+                                    <option value="1" >1</option>
+                                    <option value="2" >2</option>
+                                    <option value="3" >3</option>
+                                    <option value="4" >4</option>
+                                    <option value="5" >5</option>
+                                </select>
+                            </div>
+                            <div  class="col-xs-1">-</div>
+                            <div  class="col-xs-5">
+                                <select id="c-2" class="form-control selectpicker" name="rate2" style="height:31px;width:45%;">
+                                    <option value="0" >0</option>
+                                    <option value="1" >1</option>
+                                    <option value="2" >2</option>
+                                    <option value="3" >3</option>
+                                    <option value="4" >4</option>
+                                    <option value="5" selected>5</option>
+                                </select>
+                            </div>
+                            <!--@formatter:on-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">认证时间</label>
+                        <input type="hidden" class="operate" data-name="createtime" value="RANGE"/>
+                        <div>
+                            <input type="text" class="form-control datetimerange" name="createtime" value=""/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">标签筛选</label>
+                        <input type="hidden" class="operate" data-name="tag" value="in"/>
+                        <div>
+                            <input type="text" class="form-control tag" name="tag" value="" />
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">-->
+<!--                    &lt;!&ndash;这里添加68px是为了避免刷新时出现元素错位闪屏&ndash;&gt;-->
+<!--                    <div class="form-group">-->
+<!--                        <label class="control-label">技能</label>-->
+<!--                        <input type="hidden" class="operate" data-name="skill_ids" value="in"/>-->
+<!--                        <div>-->
+<!--                            {:build_select('skill_ids', $skill, null, ['class'=>'form-control selectpicker','multiple'=>'','required'=>'', 'data-live-search'=>"true"])}-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">-->
+<!--                    &lt;!&ndash;这里添加68px是为了避免刷新时出现元素错位闪屏&ndash;&gt;-->
+<!--                    <div class="form-group">-->
+<!--                        <label class="control-label">区域</label>-->
+<!--                        <input type="hidden" class="operate" data-name="area_ids" value="in"/>-->
+<!--                        <div>-->
+<!--                            {:build_select('area_ids', $area, null, ['class'=>'form-control selectpicker','multiple'=>'','required'=>'', 'data-live-search'=>"true"])}-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="submit" class="btn btn-success btn-block" value="提交"/>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="reset" class="btn btn-primary btn-block" value="重置"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</script>
+

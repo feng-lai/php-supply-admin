@@ -1,0 +1,29 @@
+<div class="panel panel-default panel-intro">
+    {:build_heading()}
+
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div id="toolbar" class="toolbar">
+                        {:build_toolbar('refresh')}
+                        <!-- <div class="dropdown btn-group {:$auth->check('user/user/multi')?'':'hide'}">
+                            <a class="btn btn-primary btn-more dropdown-toggle btn-disabled disabled" data-toggle="dropdown"><i class="fa fa-cog"></i> 操作</a>
+                            <ul class="dropdown-menu text-left" role="menu">
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:;" data-params="verify_status=0"><i class="fa fa-eye"></i>未审核</a></li>
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:;" data-params="verify_status=1"><i class="fa fa-eye"></i>审核通过</a></li>
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:;" data-params="verify_status=2"><i class="fa fa-eye-slash"></i>拒绝</a></li>
+                            </ul>
+                        </div>-->
+                     </div>
+                    <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                            data-operate-edit="" 
+                           data-operate-del=""
+                           width="100%">
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

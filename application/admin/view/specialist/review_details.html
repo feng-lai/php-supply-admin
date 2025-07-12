@@ -1,0 +1,600 @@
+<style>
+    .profile-avatar-container {
+        position: relative;
+        width: 100px;
+        margin: 0 auto;
+    }
+
+    .profile-avatar-container .profile-user-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-avatar-container .profile-avatar-text {
+        display: none;
+    }
+
+    .profile-avatar-container:hover .profile-avatar-text {
+        display: block;
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        background: #444;
+        opacity: .6;
+        color: #fff;
+        top: 0;
+        left: 0;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    .profile-avatar-container button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+
+    .label-success {
+        white-space: normal;
+        display: inline-block;
+        padding: 5px 10px;
+        line-height: 18px;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+</style>
+<div class="row animated fadeInRight">
+
+    <div class="col-md-8">
+        <div class="panel panel-default panel-intro panel-nav">
+            <div class="panel-body">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="one">
+                        <div class="widget-body no-padding">
+                            <h1>专家基础信息</h1>
+                            <form class="form-horizontal" role="form" id="review_details">
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">用户昵称</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <input id="nickname" class="form-control" name="row[nickname]" type="text"
+                                               data-rule="required" value="{$row.nickname|htmlentities}" disabled>
+                                        {else}
+                                        <span style="margin-right:20px;">{$row.nickname}</span>
+                                        {/if}
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2">状态</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                    <span style="margin-right:20px;">
+                                        {if $row.status == '1'}正常{/if}
+                                        {if $row.status == '2'}禁用{/if}
+                                    </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">用户头像</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        <img class="profile-user-img img-responsive avatar-img" data-tips-image
+                                             src="{$row.avatar|htmlentities|cdnurl}" alt="">
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2">手机</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <input id="mobile" class="form-control" name="row[mobile]" type="text"
+                                               data-rule="required" disabled value="{$row.mobile|htmlentities}">
+                                        {else}
+                                        {$row.mobile}
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">地区</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <input id="addr" class="form-control" name="row[addr]" type="text"
+                                               data-rule="required" disabled
+                                               value="{$row.addr|htmlentities}">
+                                        {else}
+                                        {$row.addr}
+                                        {/if}
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2">真实姓名</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <input id="name" class="form-control" disabled name="row[name]" type="text"
+                                               data-rule="required"
+                                               value="{$row.name|htmlentities}">
+                                        {else}
+                                        {$row.name}
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">注册时间</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <input id="createtime" disabled class="form-control datetimepicker"
+                                               name="row[createtime]" type="text"
+                                               value="{:date(" Y-m-d H:i:s",$row.createtime)}">
+                                        {else}
+                                        {:date("Y-m-d H:i:s",$row.createtime)}
+                                        {/if}
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">最后登录日期</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <input id="logintime" disabled class="form-control datetimepicker" name="row[logintime]"
+                                               type="text"
+                                               value="{$row.logintime}">
+                                        {else}
+                                        {$row.logintime}
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">微信号</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <input id="wechat" class="form-control" name="row[wechat]" type="text"
+                                               data-rule="required" disabled value="{$row.wechat|htmlentities}">
+                                        {else}
+                                        {$row.wechat}
+                                        {/if}
+                                    </div>
+                                </div>
+
+                                <!-- 企业信息 -->
+                                <h1>专家认证信息</h1>
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">行业标签</div>
+                                    <div class="col-xs-10 col-sm-10">
+                                        {if $row.status == 0}
+                                        <input id="c-industry_ids" type="hidden" name="row[industry_ids]"
+                                               data-rule="required" value="{$row.industry_ids|htmlentities}"/>
+                                        <div class="col-xs-12 col-sm-8 industry_ids">
+                                            {foreach $in_arr as $v}
+                                            <div class="btn-group dropup dropup_{$v['id']}">
+                                                <button type="button" class="btn btn-primary">{$v['name']}</button>
+
+                                            </div>
+                                            {/foreach}
+                                        </div>
+                                        {else}
+                                        {$row.industry}
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">技能标签</div>
+                                    <div class="col-xs-10 col-sm-10">
+                                        {if $row.status == 0}
+                                        <input id="c-skill_ids" type="hidden" name="row[skill_ids]" data-rule="required"
+                                               value="{$row.skill_ids|htmlentities}"/>
+                                        <div class="col-xs-12 col-sm-8 skill_ids">
+                                            {foreach $sk_arr as $v}
+                                            <div class="btn-group dropup dropup_{$v['id']}">
+                                                <button type="button" class="btn btn-primary">{$v['name']}</button>
+
+                                            </div>
+                                            {/foreach}
+
+                                        </div>
+                                        {else}
+                                        {$row.skill}
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">地区标签</div>
+                                    <div class="col-xs-10 col-sm-10">
+                                        {if $row.status == 0}
+                                        <input id="c-area_ids" type="hidden" name="row[area_ids]" data-rule="required"
+                                               value="{$row.area_ids|htmlentities}"/>
+                                        <div class="col-xs-12 col-sm-8 area_ids">
+                                            {foreach $area_arr as $v}
+                                            <div class="btn-group dropup dropup_{$v['id']}">
+                                                <button type="button" class="btn btn-primary">{$v['name']}</button>
+
+                                            </div>
+                                            {/foreach}
+
+                                        </div>
+                                        {else}
+                                        {$row.area}
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">其他关键词</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <input id="c-keywords_json" disabled class="form-control" name="row[keywords_json]"
+                                               type="text" data-role='tagsinput'
+                                               data-tagsinput-options='{"maxTags":25,"maxChars":20,"trimValue":true}'
+                                               data-rule="required" value="{$row.keywords_json|htmlentities}">
+                                        {else}
+                                        {$row.keywords_json}
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">服务案例文本</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <dl class="fieldlist" data-name="row[case_json]" data-template="casetpl">
+                                            <dd>
+                                            </dd>
+                                            <dd>
+                                                <a href="javascript:;" class="btn btn-sm btn-success btn-append"><i
+                                                        class="fa fa-plus"></i> 追加</a>
+                                            </dd>
+                                            <textarea id="c-case_json" name="row[case_json]" class="form-control hide"
+                                                      cols="30" rows="5" data-rule="required">{$case_json}</textarea>
+                                        </dl>
+                                        {else}
+                                        {foreach name="$row.case_json" item="vo"}
+                                        <span class="label label-success">{$vo['desc']}</span>
+                                        {/foreach}
+                                        {/if}
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">专家评审等级</div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        {if $row.status == 0}
+                                        <input id="c-level_ids" class="form-control" name="row[level_ids]" type="text"
+                                               data-rule="required"
+                                               value="{$row.level_ids|htmlentities}">
+                                        {else}
+                                        <span class="label label-success">{$row.level_ids}</span>
+                                        {/if}
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">收款银行</div>
+                                    <div class="col-xs-4 col-sm-2">
+                                        {if $row.status == 0}
+                                        <input id="id_no_bank_name" disabled class="form-control" name="row[id_no_bank_name]"
+                                               type="text" data-rule="required"
+                                               value="{$row.id_no_bank_name|htmlentities}">
+                                        {else}
+                                        {$row.id_no_bank_name}
+                                        {/if}
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2">银行账号</div>
+                                    <div class="col-xs-4 col-sm-2">
+                                        {if $row.status == 0}
+                                        <input id="id_no_bank_name" disabled class="form-control" name="row[id_no_bank_id]"
+                                               type="text" data-rule="required"
+                                               value="{$row.id_no_bank_id|htmlentities}">
+                                        {else}
+                                        {$row.id_no_bank_id}
+                                        {/if}
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2">收款人</div>
+                                    <div class="col-xs-4 col-sm-2">
+                                        {if $row.status == 0}
+                                        <input id="id_no_bank_user" disabled class="form-control" name="row[id_no_bank_user]"
+                                               type="text" data-rule="required"
+                                               value="{$row.id_no_bank_user|htmlentities}">
+                                        {else}
+                                        {$row.id_no_bank_user}
+                                        {/if}
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">个人简介</div>
+                                    <div class="col-xs-10 col-sm-10">
+                                        {if $row.status == 0}
+                                        <textarea id="c-intro" class="form-control " rows="5" name="row[intro]"
+                                                  cols="50" data-rule="required">{$row.intro|htmlentities}</textarea>
+                                        {else}
+                                        {$row.intro}
+                                        {/if}
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">专家特色</div>
+                                    <div class="col-xs-10 col-sm-10">
+                                        {if $row.status == 0}
+                                        <dl class="fieldlist" data-name="row[feature_json]" data-template="featuretpl">
+                                            <dd></dd>
+                                            <dd>
+                                                <a href="javascript:;" class="btn btn-sm btn-success btn-append"><i
+                                                        class="fa fa-plus"></i> 追加</a>
+                                            </dd>
+                                            <textarea id="c-feature_json" name="row[feature_json]"
+                                                      class="form-control hide" cols="30" rows="5" data-rule="required">{$feature_json}</textarea>
+                                        </dl>
+                                        {else}
+                                        {foreach name="$row.feature_json" item="vo"}
+                                        标题: <span class="label label-success">{$vo['name']}</span>
+                                        描述: <span class="label label-success">{$vo['gender']}</span><br>
+                                        {/foreach}
+                                        {/if}
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">教育信息</div>
+                                    <div class="col-xs-10 col-sm-10">
+                                        {if $row.status == 0}
+                                        <dl class="fieldlist" data-name="row[edu_json]" data-template="edutpl">
+                                            <dd>
+                                            </dd>
+
+                                            <textarea id="c-edu_json" name="row[edu_json]" class="form-control hide"
+                                                      cols="30" rows="5" data-rule="required">
+                                                {$edu_json}
+                                            </textarea>
+                                        </dl>
+                                        {else}
+                                        {foreach name="$row.edu_json" item="vo"}
+                                        <span class="label label-success">{$vo['degree_name']}</span>
+                                        <span class="label label-success">{$vo['school_name']} - {$vo['major_name']}</span>
+                                        <span class="label label-success">{:date('Y/m/d',strtotime($vo['begin_time']))} - {:date('Y/m/d',strtotime($vo['end_time']))}</span><br>
+                                        {/foreach}
+                                        {/if}
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-12 line">
+                                    <div class="col-xs-2 col-sm-2">证书信息</div>
+                                    {if $row.status == 0}
+                                    <div class="col-xs-10 col-sm-10">
+                                        <table id="table2"
+                                               class="table table-striped table-bordered table-hover table-nowrap"
+                                               data-operate-edit=""
+                                               data-operate-del=""
+                                               width="100%">
+                                            <tr>
+                                                <td class="tdh">证书名称</td>
+                                                <td class="tdh">证书时间</td>
+                                                <td class="tdh">证书凭证</td>
+                                                <td class="tdh">发证机构</td>
+                                                <td class="tdh">操作</td>
+                                            </tr>
+                                            {foreach $row.certificate_json as $k=>$v}
+                                            <tr id="row{$k}" style="line-height:80px;">
+                                                <td class="td">{$v.certifi_company}</td>
+                                                <td class="td">{$v.certifitime}</td>
+                                                <td class="td">
+                                                    <a class="thumbnail">
+                                                        <img style="height:80px;"
+                                                             src="{$v.certifiimage|htmlentities|cdnurl}" height="80px">
+                                                    </a>
+                                                </td>
+                                                <td class="td">{$v.name}</td>
+                                                </td>
+                                            </tr>
+                                            {/foreach}
+                                        </table>
+
+                                    </div>
+                                    {else}
+                                    <div class="col-xs-10 col-sm-10" style="display: flex; align-items: center">
+
+
+                                        {foreach name="$row.certificate_json" item="vo"}
+                                        <div class="col-xs-2 col-sm-2">
+                                            <img class="profile-user-img img-responsive id-img" data-tips-image
+                                                 src="{$vo.certifiimage|htmlentities|cdnurl}" alt="">
+                                        </div>
+                                        <div class="col-xs-10 col-sm-10">
+                                            <span class="label label-success">{$vo['name']}</span>
+                                            <span class="label label-success">{$vo['certifi_company']}</span>
+                                            <span class="label label-success">{$vo['certifitime']}</span>
+                                        </div>
+
+                                        <br>
+                                        {/foreach}
+
+                                    </div>
+                                    {/if}
+                                </div>
+                            </form>
+                            {if $row.status == 0}
+                            <div class="form-group layer-footer">
+                                <label class="control-label col-xs-12 col-sm-12"></label>
+                                <div class="col-xs-12 col-sm-12 text-center">
+                                    <button id="nopass" data-id="{$row.id}" class="btn btn-default btn-embossed">不通过
+                                    </button>
+                                    <button id="pass" data-id="{$row.id}" class="btn btn-primary btn-embossed">审核通过
+                                    </button>
+                                </div>
+                            </div>
+                            {/if}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="panel-heading">
+                修改信息维度
+            </div>
+            <div class="panel-body">
+
+                <div class="box-body box-profile">
+                    {foreach name="data" item="vo"}
+                    <div class="form-group">
+                        <label class="control-label">{$vo['content']}</label>
+                    </div>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- 添加证书弹框 -->
+<form id="add-certificate-form" style="display: none;" class="form-horizontal" role="form" data-toggle="validator"
+      method="POST" action="">
+
+    <div class="form-group" style="margin-top:20px;">
+        <label class="control-label col-xs-12 col-sm-2">证书名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" name="row[name]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">证书图片:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-certifiimage" class="form-control" size="50" name="row[certifiimage]" type="text" value="">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-certifiimage" class="btn btn-danger faupload"
+                                  data-input-id="c-certifiimage"
+                                  data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp,image/webp"
+                                  data-multiple="false" data-preview-id="p-certifiimage"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-certifiimage" class="btn btn-primary fachoose"
+                                  data-input-id="c-certifiimage" data-mimetype="image/*" data-multiple="false"><i
+                            class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-certifiimage"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-certifiimage"></ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">证书时间</label>
+        <div class="col-xs-12 col-sm-8">
+            <input data-locale='{"format":"YYYY/MM/DD"}' placeholder="指定日期" id="c-certifitime"
+                   class="form-control datetimerange" name="row[certifitime]" type="text" value="" autocomplete="off">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">证书机构</label>
+        <div class="col-xs-12 col-sm-8">
+            <input placeholder="" id="c-certifi_company" class="form-control" name="row[certifi_company]" type="text"
+                   value="">
+        </div>
+    </div>
+
+</form>
+<!--专家特色模板-->
+<script type="text/html" id="featuretpl">
+    <dd class="form-group">
+        <div class="col-xs-12 col-sm-12">
+            <div class="col-xs-8 col-sm-8" style="padding:0 0 20px 0;border:1px solid #aaa;">
+                <label class="control-label col-xs-12 col-sm-12" style="text-align:left;">标题</label>
+
+                <div class="col-xs-12 col-sm-12">
+                    <input style="width:100%;" style="" type="text" name="row[<%=name%>][<%=index%>][name]"
+                           class="form-control" value="<%=row['name']%>" size="10">
+                </div>
+                <label class="control-label col-xs-12 col-sm-12" style="text-align:left;">描述</label>
+                <div class="col-xs-12 col-sm-12">
+                    <textarea type="text" name="row[<%=name%>][<%=index%>][gender]" class="form-control"
+                              value="<%=row['gender']%>"><%=row['gender']%></textarea>
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 text-center">
+                <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span> <span
+                    class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+            </div>
+        </div>
+    </dd>
+</script>
+<!--服务案例模板-->
+<script type="text/html" id="casetpl">
+    <dd class="form-group">
+        <div class="col-xs-12 col-sm-12">
+            <div class="col-xs-8 col-sm-8" style="padding:0 0 20px 0;border:1px solid #aaa;">
+                <label class="control-label col-xs-12 col-sm-12" style="text-align:left;">标题</label>
+
+                <div class="col-xs-12 col-sm-12">
+                    <input placeholder="请用一句话描述服务案例" style="width:100%;" style="" type="text"
+                           name="row[<%=name%>][<%=index%>][desc]" class="form-control" value="<%=row['desc']%>"
+                           size="10">
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 text-center">
+                <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span> <span
+                    class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+            </div>
+        </div>
+    </dd>
+</script>
+
+<!--教育模板-->
+<script type="text/html" id="edutpl">
+    <dd class="form-group">
+        <div class="col-xs-12 col-sm-12">
+            <div class="col-xs-10 col-sm-10">
+                <div class="col-xs-6 col-sm-6" style="padding:0 0 20px 0;border:1px solid #aaa;">
+                    <label class="control-label col-xs-12 col-sm-12" style="text-align:left;">学校名称</label>
+
+                    <div class="col-xs-12 col-sm-12">
+                        <input style="width:100%;" style="" disabled type="text" name="row[<%=name%>][<%=index%>][school_name]"
+                               class="form-control" value="<%=row['school_name']%>" size="10">
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6" style="padding:0 0 20px 0;border:1px solid #aaa;">
+                    <label class="control-label col-xs-12 col-sm-12" style="text-align:left;">学历</label>
+
+                    <div class="col-xs-12 col-sm-12">
+                        <input style="width:100%;" style="" disabled type="text" name="row[<%=name%>][<%=index%>][degree_name]"
+                               class="form-control" value="<%=row['degree_name']%>" size="10">
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6" style="padding:0 0 20px 0;border:1px solid #aaa;">
+                    <label class="control-label col-xs-12 col-sm-12" style="text-align:left;">专业/研究方向</label>
+
+                    <div class="col-xs-12 col-sm-12">
+                        <input style="width:100%;" style="" disabled type="text" name="row[<%=name%>][<%=index%>][major_name]"
+                               class="form-control" value="<%=row['major_name']%>" size="10">
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6" style="padding:0 0 20px 0;border:1px solid #aaa;">
+                    <label class="control-label col-xs-12 col-sm-12" style="text-align:left;">时间段</label>
+
+                    <div class="col-xs-5 col-sm-5">
+                        <input style="width:100%;" style="" disabled type="year" name="row[<%=name%>][<%=index%>][begin_time]"
+                               class="form-control" value="<%=row['begin_time']%>" size="10">
+                    </div>
+                    <div class="col-xs-2 col-sm-2 text-center">-</div>
+                    <div class="col-xs-5 col-sm-5">
+                        <input style="width:100%;" style="" disabled type="year" name="row[<%=name%>][<%=index%>][end_time]"
+                               class="form-control" value="<%=row['end_time']%>" size="10">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </dd>
+</script>
+<style>
+    .line {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    #p-id_no_front_image li {
+        width: 100%;
+    }
+
+    #p-id_no_backend_image li {
+        width: 100%;
+    }
+</style>

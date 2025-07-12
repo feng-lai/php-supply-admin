@@ -1,0 +1,121 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('User_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-user_id" data-rule="required" disabled data-source="user/user/index" data-field="id_no_name" class="form-control selectpage" name="row[user_id]" type="text" value="{$row.user_id|htmlentities}">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_id" class="form-control" disabled name="row[sn]" type="text" value="{$row.sn|htmlentities}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-type" class="form-control selectpicker" name="row[type]" disabled>
+                {foreach name="typeList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.type"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" class="form-control" disabled name="row[title]" type="text" value="{$row.title|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Company_number')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-company_number" class="form-control" disabled name="row[company_number]" type="text" value="{$row.company_number|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Company_addr')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-company_addr" class="form-control" disabled name="row[company_addr]" type="text" value="{$row.company_addr|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Company_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-company_tel" class="form-control" disabled name="row[company_tel]" type="text" value="{$row.company_tel|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Recepient_email')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-recepient_email" class="form-control" disabled name="row[recepient_email]" type="text" value="{$row.recepient_email|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Recepient_addr')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-recepient_addr" class="form-control" disabled name="row[recepient_addr]" type="text" value="{$row.recepient_addr|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Recepient_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-recepient_tel" class="form-control" disabled name="row[recepient_tel]" type="text" value="{$row.recepient_tel|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Recepient_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-recepient_name" class="form-control" disabled name="row[recepient_name]" type="text" value="{$row.recepient_name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Amount')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-amount" class="form-control" disabled step="0.01" name="row[amount]" type="number" value="{$row.amount|htmlentities}">
+        </div>
+    </div>
+<!--    <div class="form-group">-->
+<!--        <label class="control-label col-xs-12 col-sm-2">{:__('Apply_user_id')}:</label>-->
+<!--        <div class="col-xs-12 col-sm-8">-->
+<!--            <input id="c-apply_user_id" data-rule="required" data-source="apply/user/index" class="form-control selectpage" name="row[apply_user_id]" type="text" value="{$row.apply_user_id|htmlentities}">-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Rate')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-rate" class="form-control" disabled step="0.01" name="row[rate]" type="number" value="{$row.rate|htmlentities}">
+        </div>
+    </div>
+    {if $row.status == '0'}
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+                <label for="row[status]-1"><input id="row[status]-1" name="row[status]" type="radio" value="1" {in name="1" value="$row.status"}checked{/in} /> 审核成功</label>
+                <label for="row[status]-2"><input id="row[status]-2" name="row[status]" type="radio" value="2" {in name="2" value="$row.status"}checked{/in} /> 审核不通过</label>
+            </div>
+
+        </div>
+    </div>
+    {/if}
+<!--    <div class="form-group">-->
+<!--        <label class="control-label col-xs-12 col-sm-2">{:__('Pass_time')}:</label>-->
+<!--        <div class="col-xs-12 col-sm-8">-->
+<!--            <input id="c-pass_time" class="form-control datetimepicker" disabled data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[pass_time]" type="text" value="{:$row.pass_time?datetime($row.pass_time):''}">-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>

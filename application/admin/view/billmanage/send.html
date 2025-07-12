@@ -1,0 +1,176 @@
+<form id="edit-form"  class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <input id="c-id" class="form-control" name="row[id]" type="hidden"  value="{$row.id}" >
+    <div class="form-group">
+        <label for="c-total" class="control-label col-xs-12 col-sm-2">待发放专家服务费:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-total" class="form-control total" name="row[total]" type="text"  value="{$row.total|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-id_no_bank_name" class="control-label col-xs-12 col-sm-2">收款银行:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-id_no_bank_name" class="form-control" name="row[id_no_bank_name]" type="text"  value="{$row.user_id_no_bank_name|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-sn" class="control-label col-xs-12 col-sm-2">关联订单:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sn" class="form-control" name="row[sn]" type="text"  value="{$row.sn|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-id_no_bank_id" class="control-label col-xs-12 col-sm-2">收款账户:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-id_no_bank_id" class="form-control" name="row[id_no_bank_id]" type="text"  value="{$row.user_id_no_bank_id|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">订单状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-status" class="form-control" name="row[status]" type="text"  value="{$row.status|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">收款人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" name="row[id_no_bank_user]" type="text"  value="{$row.id_no_bank_user|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">需求方:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-nickname" class="form-control" name="row[nickname]" type="text"  value="{$row.nickname|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-need_invoice" class="control-label col-xs-12 col-sm-2">开票类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-need_invoice" class="form-control" name="row[need_invoice]" type="text"  value="{$row.need_invoice|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-specia_name" class="control-label col-xs-12 col-sm-2">服务专家:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-specia_name" class="form-control" name="row[specia_name]" type="text"  value="{$row.specia_name|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-rate_fee_per" class="control-label col-xs-12 col-sm-2">开票税点:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-rate_fee_per" class="form-control rate_fee_per" name="row[rate_fee_per]" type="text"  value="" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-sys_fee_per" class="control-label col-xs-12 col-sm-2">平台服务费率:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sys_fee_per" class="form-control rate_rate" name="row[sys_fee_per]" type="text"  value="{$row.rate_rate}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-rate_fee" class="control-label col-xs-12 col-sm-2">税点金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-rate_fee" class="form-control points_price" name="row[rate_fee]" type="text"  value="" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-sys_fee" class="control-label col-xs-12 col-sm-2">平台服务金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sys_fee" class="form-control system_price" name="row[sys_fee]" type="number"  value="" >
+        </div>
+    </div>
+
+
+
+    <!--<div class="form-group">
+        <label for="c-id_no_bank_name" class="control-label col-xs-12 col-sm-2">收款银行:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" name="row[id_no_bank_name]" type="text"  value="{$row.id_no_bank_name|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-id_no_bank_id" class="control-label col-xs-12 col-sm-2">收款账户:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" name="row[id_no_bank_id]" type="text"  value="{$row.id_no_bank_id|htmlentities}" disabled>
+        </div>
+    </div>-->
+
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">收款人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" name="row[id_no_bank_user]" type="text"  value="{$row.id_no_bank_user|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-real_total" class="control-label col-xs-12 col-sm-2">专家实收款:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-real_total" class="form-control real_total" name="row[real_total]" type="text"  value="{$row.total|htmlentities}" >
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">发放转账凭证:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-avatar" data-rule="" class="form-control" size="50" name="row[grant_voucher]" type="text" value="">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-avatar" class="btn btn-danger faupload" data-input-id="c-avatar" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-avatar"><i class="fa fa-upload"></i> 上传</button></span>
+
+                </div>
+                <span class="msg-box n-right" for="c-avatar"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-avatar"></ul>
+        </div>
+    </div>
+
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+
+            <button type="submit" class="btn btn-primary btn-embossed">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+
+<!--<script>-->
+<!--    // 获取输入数字-->
+<!--    let rate_fee_per = $(".rate_fee_per");-->
+
+<!--    // 监听 c-sys_fee 输入框的变化事件-->
+<!--    rate_fee_per.addEventListener('input', function() {-->
+<!--        var rate_rate = $(".rate_rate").val();-->
+<!--        var total = $(".total").val();-->
+
+<!--        $(".points_price").val(total * rate_rate);-->
+<!--        $(".system_price").val(total - (total * rate_rate) * rate_rate);-->
+
+
+<!--    });-->
+
+
+
+<!--</script>-->

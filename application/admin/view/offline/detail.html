@@ -1,0 +1,163 @@
+<form id="edit-form"  class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <input id="c-order_pay_id" class="form-control" name="row[order_pay_id]" type="hidden"  value="{$row.order_pay_id}" >
+    <div class="form-group">
+        <label for="c-ownership_no" class="control-label col-xs-12 col-sm-2">订单编号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-ownership_no" class="form-control" name="row[ownership_no]" type="text"  value="{$row.ownership_no|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-idx" class="control-label col-xs-12 col-sm-2">支付状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-idx" class="form-control" name="row[idx]" type="text"  value="{$row.idx|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-pay_count" class="control-label col-xs-12 col-sm-2">应付金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_count" class="form-control" name="row[pay_count]" type="text"  value="{$row.pay_count|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">支付用户:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-nickname" class="form-control" name="row[nickname]" type="text"  value="{$row.nickname|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-pay_tip" class="control-label col-xs-12 col-sm-2">备注信息:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-pay_tip" class="form-control" name="row[pay_tip]" type="text" disabled>{$row.pay_tip|htmlentities}</textarea>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-pay_tip" class="control-label col-xs-12 col-sm-2">转账凭证:</label>
+        <div class="col-xs-12 col-sm-8">
+            <img style="float: left;width: 200px;" class="profile-user-img img-responsive id-img" data-tips-image src="{$row.pay_file|htmlentities|cdnurl}" alt="">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-pay_tip" class="control-label col-xs-12 col-sm-2">付款金额是否正确:</label>
+        <div class="col-xs-12 col-sm-8">
+            {if condition="$row.status == 0"}
+            {:build_radios('row[is_excp]', [0=>'确认无误',1=>'付款金额错误'], $row['is_excp']);}
+            {else /}
+            <input class="form-control" type="text"  value="{$row.is_excp == '0'?'确认无误':'付款金额错误'}" disabled>
+            {/if}
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">付款法人主体名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" name="row[name]" type="text"  value="{$row.name|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-bank_name" class="control-label col-xs-12 col-sm-2">付款银行:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bank_name" class="form-control" name="row[bank_name]" type="text"  value="{$row.bank_name|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-bank_id" class="control-label col-xs-12 col-sm-2">付款账户:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bank_id" class="form-control" name="row[bank_id]" type="text"  value="{$row.bank_id|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    {if condition="$row.status == 0"}
+    <div class="form-group">
+        <label for="c-pay_tip" class="control-label col-xs-12 col-sm-2">付款状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[status]', [1=>'通过',2=>'不通过'], $row['status']);}
+        </div>
+    </div>
+    {else /}
+    <div class="form-group">
+        <label for="c-pay_tip" class="control-label col-xs-12 col-sm-2">付款状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" type="text"  value="{$row.status == 1?'通过':'不通过'}" disabled>
+        </div>
+    </div>
+    {/if}
+
+
+    {if condition="$row.status == 0"}
+    <div class="form-group"  data-favisible="status=1">
+        <label class="control-label col-xs-12 col-sm-2">转账核对凭证:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-image" class="form-control" size="50" name="row[vertify_file]" type="text">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-image" class="btn btn-danger faupload" data-input-id="c-image" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp,image/webp" data-multiple="false" data-preview-id="p-image"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-image" class="btn btn-primary fachoose" data-input-id="c-image" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-image"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-image"></ul>
+        </div>
+    </div>
+    {else /}
+        {if condition="$row.status == 1"}
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">转账核对凭证:</label>
+            <div class="col-xs-12 col-sm-8">
+                <img style="float: left;width: 200px;" class="profile-user-img img-responsive id-img" data-tips-image src="{$row.vertify_file|htmlentities|cdnurl}" alt="">
+            </div>
+        </div>
+        {/if}
+    {/if}
+
+
+    {if condition="$row.status == 0"}
+    <div class="form-group" data-favisible="status=2">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">不通过原因:</label>
+        <div class="col-xs-12 col-sm-8">
+            {if condition="$row.status == 0"}
+            <input id="c-name" class="form-control" name="row[reason]" type="text"  value="{$row.vertify_refuse_reason|htmlentities}">
+            {else /}
+            <input id="c-name" class="form-control" name="row[reason]" type="text"  value="{$row.vertify_refuse_reason|htmlentities}" disabled>
+            {/if}
+        </div>
+    </div>
+    {else /}
+        {if condition="$row.status == 2"}
+        <div class="form-group">
+            <label for="c-name" class="control-label col-xs-12 col-sm-2">不通过原因:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-name" class="form-control" name="row[reason]" type="text"  value="{$row.vertify_refuse_reason|htmlentities}" disabled>
+            </div>
+        </div>
+        {/if}
+    {/if}
+
+    {if condition="$row.status == 0"}
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+
+            <button type="submit" class="btn btn-primary btn-embossed">{:__('OK')}</button>
+        </div>
+    </div>
+    {/if}
+</form>

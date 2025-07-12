@@ -1,0 +1,170 @@
+<form id="edit-form"  class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <input id="c-id" class="form-control" name="row[id]" type="hidden"  value="{$row.id}" >
+
+    <div class="form-group">
+        <label for="c-sn" class="control-label col-xs-12 col-sm-2">关联订单:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sn" class="form-control" name="row[sn]" type="text"  value="{$row.sn|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-deal_info" class="control-label col-xs-12 col-sm-2">处理说明:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-deal_info" class="form-control" name="row[deal_info]" type="text"  value="{$row.deal_info|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-debit_explan" class="control-label col-xs-12 col-sm-2">扣款说明:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-debit_explan" class="form-control" name="row[debit_explan]" type="text"  value="{$row.debit_explan|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">订单状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-status" class="form-control" name="row[status]" type="text"  value="已中止" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">需求方:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-nickname" class="form-control" name="row[nickname]" type="text"  value="{$row.nickname|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-debit_per" class="control-label col-xs-12 col-sm-2">应退还服务费:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-debit_per" class="form-control" name="row[return_price]" type="text"  value="{$row.return_price|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">收款银行:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" name="row[user_id_no_bank_name]" type="text"  value="{$row.user_id_no_bank_name|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+    <label class="control-label col-xs-12 col-sm-2">用户名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input  class="form-control" name="row[nickname]" type="text"  value="{$row.nickname|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">收款账户:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" name="row[user_id_no_bank_id]" type="text"  value="{$row.user_id_no_bank_id|htmlentities}" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+    <label class="control-label col-xs-12 col-sm-2">收款人:</label>
+    <div class="col-xs-12 col-sm-8">
+        <input  class="form-control" name="row[id_no_name]" type="text"  value="{$row.id_no_name|htmlentities}" disabled>
+    </div>
+    </div>
+
+    <div class="form-group">
+    <label class="control-label col-xs-12 col-sm-2">应支付专家服务费:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input  class="form-control" name="row[price]" type="text"  value="{$row.price|htmlentities}" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">收款银行:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" name="row[id_no_bank_name]" type="text"  value="{$row.id_no_bank_name|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-specia_name" class="control-label col-xs-12 col-sm-2">服务专家:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-specia_name" class="form-control" name="row[specia_name]" type="text"  value="{$row.specia_name|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-id_no_bank_id" class="control-label col-xs-12 col-sm-2">收款账户:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" name="row[id_no_bank_id]" type="text"  value="{$row.id_no_bank_id|htmlentities}" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-specia_name" class="control-label col-xs-12 col-sm-2">收款人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-specia_name" class="form-control" name="row[cname]" type="text"  value="{$row.id_no_bank_user|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">需求方应退还服务费:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" name="row[return_price]" type="text"  value="{$row.return_price|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-refund_voucher" class="control-label col-xs-12 col-sm-2">发放转账凭证:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-refund_voucher" data-rule="" class="form-control" size="50" name="row[refund_voucher]" type="text" value="">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-refund_voucher" class="btn btn-danger faupload" data-input-id="c-refund_voucher" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-refund_voucher"><i class="fa fa-upload"></i> 上传</button></span>
+
+                </div>
+                <span class="msg-box n-right" for="c-refund_voucher"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-refund_voucher"></ul>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">应支付专家服务费:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" name="row[price]" type="text"  value="{$row.price|htmlentities}" disabled>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">发放转账凭证:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-avatar" data-rule="" class="form-control" size="50" name="row[grant_voucher]" type="text" value="">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-avatar" class="btn btn-danger faupload" data-input-id="c-avatar" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-avatar"><i class="fa fa-upload"></i> 上传</button></span>
+
+                </div>
+                <span class="msg-box n-right" for="c-avatar"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-avatar"></ul>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+
+            <button type="submit" class="btn btn-primary btn-embossed">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'Name'                => '身份证姓名',
+    'Id_no'               => '身份证号',
+    'Id_no_front_image'   => '身份证正面',
+    'Id_no_backend_image' => '身份证反面',
+    'Wechat'              => '微信号码',
+    'Addr'                => '联系地址',
+    'Nickname'            => '昵称',
+    'Industry_ids'        => '行业标签',
+    'Skill_ids'           => '技能标签',
+    'Area_ids'            => '地区标签',
+    'Level_ids'           => '专家评审等级',
+    'Keywords_json'       => '关键词',
+    'Lowest_price'        => '服务报价起点',
+    'Case_json'           => '服务案例文本',
+    'certificate_json'     => '资质证书',
+    'edu_json'             => '教育信息',
+    'Feature_json'        => '专家特色',
+    'Intro'               => '个人简介',
+    'Createtime'          => '创建时间',
+    'Updatetime'          => '更新时间',
+    'Status'              => '状态',
+    'Status 0'            => '未审核',
+    'Set status to 0'     => '设为未审核',
+    'Status 1'            => '通过',
+    'Set status to 1'     => '设为通过',
+    'Status 2'            => '未通过',
+    'Set status to 2'     => '设为未通过',
+    'Tags'                => '标签'
+];

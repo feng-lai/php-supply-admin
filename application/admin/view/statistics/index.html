@@ -1,0 +1,408 @@
+<style type="text/css">
+    .sm-st {
+        background: #fff;
+        padding: 20px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        margin-bottom: 20px;
+    }
+
+    .sm-st-icon {
+        width: 60px;
+        height: 60px;
+        display: inline-block;
+        line-height: 60px;
+        text-align: center;
+        font-size: 30px;
+        background: #eee;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        float: left;
+        margin-right: 10px;
+        color: #fff;
+    }
+
+    .sm-st-info {
+        padding-top: 2px;
+    }
+
+    .sm-st-info span {
+        display: block;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .orange {
+        background: #fa8564 !important;
+    }
+
+    .tar {
+        background: #45cf95 !important;
+    }
+
+    .sm-st .green {
+        background: #86ba41 !important;
+    }
+
+    .pink {
+        background: #AC75F0 !important;
+    }
+
+    .yellow-b {
+        background: #fdd752 !important;
+    }
+
+    .stat-elem {
+
+        background-color: #fff;
+        padding: 18px;
+        border-radius: 40px;
+
+    }
+
+    .stat-info {
+        text-align: center;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-top: -5px;
+        padding: 8px;
+        -webkit-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
+        font-style: italic;
+    }
+
+    .stat-icon {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .st-red {
+        background-color: #F05050;
+    }
+
+    .st-green {
+        background-color: #27C24C;
+    }
+
+    .st-violet {
+        background-color: #7266ba;
+    }
+
+    .st-blue {
+        background-color: #23b7e5;
+    }
+
+    .stats .stat-icon {
+        color: #28bb9c;
+        display: inline-block;
+        font-size: 26px;
+        text-align: center;
+        vertical-align: middle;
+        width: 50px;
+        float: left;
+    }
+
+    .stat {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+    }
+
+    .stat .value {
+        font-size: 20px;
+        line-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+    }
+
+    .stat .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 5px 0;
+    }
+
+    .stat.lg .value {
+        font-size: 26px;
+        line-height: 28px;
+    }
+
+    .stat-col {
+        margin:0 0 10px 0;
+    }
+    .stat.lg .name {
+        font-size: 16px;
+    }
+
+    .stat-col .progress {
+        height: 2px;
+    }
+
+    .stat-col .progress-bar {
+        line-height: 2px;
+        height: 2px;
+    }
+
+    .item {
+        padding: 30px 0;
+    }
+
+
+    #statistics .panel {
+        min-height: 150px;
+    }
+
+    #statistics .panel h5 {
+        font-size: 14px;
+    }
+    .panel-title{
+        font-size: 20px !important;
+        text-align: center !important;
+    }
+    .panel-content{
+        text-align: center !important;
+    }
+    .label-primary{
+        background-color: #f5f5f505 !important;
+    }
+
+    .pull-right {
+        float: none !important;
+    }
+    h1, .h1 {
+        font-size: 40px;
+    }
+    .left-line{
+        width: 5px;
+        height: 20px;
+        background-color: #4480f4 ;
+        display: block;
+        margin-right: 10px;
+    }
+    .left-line2{
+        width: 5px;
+        height: 20px;
+        background-color: #999999 ;
+        display: block;
+        margin-right: 10px;
+    }
+    .row .title{
+        display: flex;
+        align-items: center;
+        font-size: 16px
+    }
+    .row .sub_title{
+        margin: 10px 0;
+        background-color: #f4f5f9;
+        padding: 20px;
+        margin-top: 30px
+    }
+    .row .btns{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .row .btns button{
+        width: 18%;
+        margin: 0.5%;
+        height: 60px;
+        border: 1px solid #e4e4e4;
+        border-radius: 5px;
+        background-color: #fff;
+
+    }
+    .row .btns .active{
+        background-color: #666666;
+        color: #fff;
+    }
+    .chart{
+        border: 1px solid #cccccc;
+        margin: 10px 0;
+        padding-bottom: 20px;
+    }
+    #statistics{
+        margin-top:15px;
+        padding: 20px
+    }
+    .part{
+        padding: 0 20px;
+    }
+</style>
+<div class="panel panel-default panel-intro ">
+    <div class="panel-heading">
+        {:build_heading(null, false)}
+    </div>
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="row" id="statistics">
+                    <div class="title"><i class="left-line"></i>基础数据</div>
+                    <div class="part">
+                        <div class="sub_title">需求方数据</div>
+                        <div class="btns">
+                            <button>总用户数：{$data[0]}</button>
+                            <button>今日新增用户数：{$data[1]}</button>
+                            <button>今日活跃用户数：{$data[2]}</button>
+                            <button>今日新增实名数：{$data[3]}</button>
+                            <button>今日新增企业数：{$data[4]}</button>
+                            <button>今日企业活跃数：{$data[5]}</button>
+                            <button>禁用企业数：{$data[6]}</button>
+                        </div>
+                        <div class="chart">
+                            <form class="col-lg-12" style="display: flex; align-items: center; background-color: #f4f5f9; padding-top: 20px; margin-bottom: 20px;">
+                                <div class="form-group" style="margin-right: 20px">
+                                    <div>
+                                        <input type="text" class="form-control datetimepicker" name="range" data-locale='{"format":"YYYY-MM-DD"}' style="width: 200px" value="{$range}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <select class="form-control selectpicker" name="time" style="width:200px;">
+                                            <option value="" {$time == ''?'selected':''}>选择时间</option>
+                                            <option value="{$today}" {$time == $today?'selected':''}>今日</option>
+                                            <option value="{$week}" {$time == $week?'selected':''}>本周</option>
+                                            <option value="{$month}" {$time == $month?'selected':''}>本月</option>
+                                            <option value="{$year}" {$time == $year?'selected':''}>今年</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-left: 20px">
+                                    <div>
+                                        <input type="submit" class="btn btn-success btn-block" value="确定"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-lg-12">
+                                <div class="title"><i class="left-line2"></i>趋势图</div>
+                                <div id="echart" class="btn-refresh" style="height:500px;width:100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="part">
+                        <div class="sub_title">专家数据</div>
+                        <div class="btns">
+                            <button>总专家数：{$specialist[0]}</button>
+                            <button>今日新增专家数：{$specialist[1]}</button>
+                            <button>今日活跃专家数：{$specialist[2]}</button>
+                            <button>禁用专家数：{$specialist[3]}</button>
+                        </div>
+                        <div class="chart">
+                            <form class="col-lg-12" style="display: flex; align-items: center; background-color: #f4f5f9; padding-top: 20px; margin-bottom: 20px;">
+                                <div class="form-group" style="margin-right: 20px">
+                                    <div>
+                                        <input type="text" class="form-control datetimepicker" name="s_range" data-locale='{"format":"YYYY-MM-DD"}' style="width: 200px" value="{$s_range}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <select class="form-control selectpicker" name="s_time" style="width:200px;">
+                                            <option value="" {$s_time == ''?'selected':''}>选择时间</option>
+                                            <option value="{$today}" {$s_time == $today?'selected':''}>今日</option>
+                                            <option value="{$week}" {$s_time == $week?'selected':''}>本周</option>
+                                            <option value="{$month}" {$s_time == $month?'selected':''}>本月</option>
+                                            <option value="{$year}" {$s_time == $year?'selected':''}>今年</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-left: 20px">
+                                    <div>
+                                        <input type="submit" class="btn btn-success btn-block" value="确定"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-lg-12">
+                                <div class="title"><i class="left-line2"></i>趋势图</div>
+                                <div id="s_echart" class="btn-refresh" style="height:500px;width:100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="part">
+                        <div class="sub_title">需求分析</div>
+                        <div class="btns">
+                            <button>总需求数：{$re[0]}</button>
+                            <button>昨日新增需求数：{$re[1]}</button>
+                            <button>上月新增需求数：{$re[2]}</button>
+                            <button>转化订单需求数：{$re[3]}</button>
+                            <button>取消需求数：{$re[4]}</button>
+                            <button>匹配中需求数：{$re[5]}</button>
+                        </div>
+                        <div class="chart">
+                            <form class="col-lg-12" style="display: flex; align-items: center; background-color: #f4f5f9; padding-top: 20px; margin-bottom: 20px;">
+                                <div class="form-group" style="margin-right: 20px">
+                                    <div>
+                                        <input type="text" class="form-control datetimepicker" name="re_range" data-locale='{"format":"YYYY-MM-DD"}' style="width: 200px" value="{$re_range}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <select class="form-control selectpicker" name="re_time" style="width:200px;">
+                                            <option value="" {$re_time == ''?'selected':''}>选择时间</option>
+                                            <option value="{$today}" {$re_time == $today?'selected':''}>今日</option>
+                                            <option value="{$week}" {$re_time == $week?'selected':''}>本周</option>
+                                            <option value="{$month}" {$re_time == $month?'selected':''}>本月</option>
+                                            <option value="{$year}" {$re_time == $year?'selected':''}>今年</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-left: 20px">
+                                    <div>
+                                        <input type="submit" class="btn btn-success btn-block" value="确定"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-lg-12">
+                                <div class="title"><i class="left-line2"></i>趋势图</div>
+                                <div id="re_echart" class="btn-refresh" style="height:500px;width:100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="part">
+                        <div class="sub_title">订单分析</div>
+                        <div class="btns">
+                            <button>总服务订单数：{$or[0]}</button>
+                            <button>昨日新订单数：{$or[1]}</button>
+                            <button>今日订单数：{$or[2]}</button>
+                            <button>上月订单数：{$or[3]}</button>
+                            <button>完成订单数：{$or[4]}</button>
+                            <button>取消订单数：{$or[5]}</button>
+                        </div>
+                        <div class="chart">
+                            <form class="col-lg-12" style="display: flex; align-items: center; background-color: #f4f5f9; padding-top: 20px; margin-bottom: 20px;">
+                                <div class="form-group" style="margin-right: 20px">
+                                    <div>
+                                        <input type="text" class="form-control datetimepicker" name="or_range" data-locale='{"format":"YYYY-MM-DD"}' style="width: 200px" value="{$or_range}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <select class="form-control selectpicker" name="or_time" style="width:200px;">
+                                            <option value="" {$or_time == ''?'selected':''}>选择时间</option>
+                                            <option value="{$today}" {$or_time == $today?'selected':''}>今日</option>
+                                            <option value="{$week}" {$or_time == $week?'selected':''}>本周</option>
+                                            <option value="{$month}" {$or_time == $month?'selected':''}>本月</option>
+                                            <option value="{$year}" {$or_time == $year?'selected':''}>今年</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-left: 20px">
+                                    <div>
+                                        <input type="submit" class="btn btn-success btn-block" value="确定"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-lg-12">
+                                <div class="title"><i class="left-line2"></i>趋势图</div>
+                                <div id="or_echart" class="btn-refresh" style="height:500px;width:100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

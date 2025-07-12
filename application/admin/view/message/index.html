@@ -1,0 +1,46 @@
+<link href="__CDN__/assets/css/message.css?v={$Think.config.site.version}" rel="stylesheet">
+<link href="__CDN__/assets/css/layui.css?v={$Think.config.site.version}" rel="stylesheet">
+<style>
+    .li{
+        float: right;
+        color: #999999;
+        font-size: 13px;
+    }
+    p{
+        display: inline-block;
+    }
+    label{
+        margin: 0 10px;
+    }
+    .active{
+        color: red;
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+
+        <div class="layui-col-sm4" style="width: 100%;">
+            <div class="layui-card">
+                <div class="layui-card-header" style="font-size: 16px;color: #333333; display: flex;justify-content: space-between">
+                    通知中心
+
+                </div>
+                <div class="layui-card-body">
+                    <ul class="layuiadmin-card-status layuiadmin-home2-usernote">
+                        {foreach name="list" item="vo"}
+                        <li>
+                            <p style="color: #333333;font-size: 13px;">
+                                <a href="{$vo['url']}" class="btn-dialog" title="详情" data-area=["100%","100%"]>{$vo['message']}</a>
+
+                            </p>
+                            <p class="li">{:date('Y年m月d日',$vo['createtime'])}</p>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,628 @@
+<div class="panel panel-default panel-intro">
+
+    <div class="panel-heading" >
+        <ul class="nav nav-tabs nav-custom-condition">
+            <li class="active"><a href="#t-all" data-value="one" data-toggle="tab">个人资料</a></li>
+            <li class=""><a href="#t-1" data-value='two' data-toggle="tab">需求记录</a></li>
+            <li class=""><a href="#t-2" data-value='three' data-toggle="tab">订单记录</a></li>
+            <li class=""><a href="#t-3" data-value='four' data-toggle="tab">冻结中服务费</a></li>
+            <li class=""><a href="#t-4" data-value='five' data-toggle="tab">已发放服务费</a></li>
+            <li class=""><a href="#t-5" data-value='six' data-toggle="tab">评价记录</a></li>
+        </ul>
+    </div>
+
+
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content"  data-value="{$row.user_id}">
+            <input type="hidden" name="id" value="{$row.id}" id="ids" />
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">用户昵称</div>
+                        <div class="col-xs-4 col-sm-4">
+                            <span style="margin-right:20px;">{$row.nickname}</span>
+                            <!-- <span class="label label-default">{$row.status_text}</span> -->
+                            <!-- <span class="label label-primary"></span> -->
+                            {if condition="$row.status eq 0"}
+                            <span class="label label-default">待审核</span>
+                            {/if}
+                            {if condition="$row.status eq '1'"}
+                            <span class="label label-success">实名</span>
+                            {/if}
+                            {if condition="$row.status eq '2'"}
+                            <span class="label label-error">未通过</span>
+                            {/if}
+                        </div>
+                        <div class="col-xs-4 col-sm-4">
+                        状态：
+                            {if condition="$row.status eq 0"}
+                            -
+                            {/if}
+                            {if condition="$row.status eq '1'"}
+                            正常
+                            {/if}
+                            {if condition="$row.status eq '2'"}
+                            禁用
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">用户头像</div>
+                        <div class="col-xs-4 col-sm-4"><img class="profile-user-img img-responsive avatar-img" data-tips-image src="{$row.avatar|htmlentities|cdnurl}" alt=""></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">手机</div>
+                        <div class="col-xs-4 col-sm-4">{$specialist.mobile}</div>
+                        <div class="col-xs-2 col-sm-2">真实姓名</div>
+                        <div class="col-xs-4 col-sm-4">{$row.name}</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">地区</div>
+                        <div class="col-xs-4 col-sm-4">{$specialist.addr}</div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">注册时间</div>
+                        <div class="col-xs-4 col-sm-4">{:date("Y-m-d H:i:s",$specialist.createtime)}</div>
+                        <div class="col-xs-2 col-sm-2">最后登录时间</div>
+                        <div class="col-xs-4 col-sm-4">{:date("Y-m-d H:i:s",$specialist.logintime)}</div>
+
+                    </div>
+                    
+                    <!-- 企业信息 -->
+                    <h1 style="margin-top:20px;" class="col-xs-12 col-sm-12">专家认证信息</h1>
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-3 col-sm-3">好评数 :{$specialist.good}</div>
+                        <div class="col-xs-3 col-sm-3">综合评分 :{$specialist.avg}</div>
+                        <div class="col-xs-3 col-sm-3">服务起步价 :{$specialist.lowest_price}</div>
+                        <div class="col-xs-3 col-sm-3">认证时间 :{$specialist.auth_time}</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">行业标签</div>
+                        <div class="col-xs-10 col-sm-10">
+                        {foreach name="specialist.industry" item="vo"}
+                        <a  class="btn btn-primary">{$vo}</a>
+                        {/foreach}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">技能标签</div>
+                        <div class="col-xs-10 col-sm-10">
+                        {foreach name="specialist.skill" item="vo"}
+                        <a  class="btn btn-primary">{$vo}</a>
+                        {/foreach}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">地区标签</div>
+                        <div class="col-xs-10 col-sm-10">
+                        {foreach name="specialist.area" item="vo"}
+                        <a  class="btn btn-primary">{$vo}</a>
+                        {/foreach}
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">其他关键词</div>
+                        <div class="col-xs-10 col-sm-10">
+                            {if $row.keywords_arr}
+                        {foreach name="row.keywords_arr" item="vo"}
+                        <span class="layui-badge-rim">{$vo}</span>
+                        {/foreach}
+                            {/if}
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">服务案例文本</div>
+                        <div class="col-xs-10 col-sm-10">
+                            {if $row.case_arr}
+                                {foreach name="row.case_arr" item="vo"}
+                                {if $vo}
+                                <span class="layui-badge-rim">{$vo.desc}</span>
+                                {/if}
+                                {/foreach}
+                            {/if}
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 line">
+                        <div class="col-xs-2 col-sm-2">专家评审等级(逗号拼接)</div>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="level_ids" class="form-control" name="row[Level_ids]" value="{$row.level_ids}" type="text" data-role='tagsinput' data-tagsinput-options='{"maxTags":25,"maxChars":20,"trimValue":true}'>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 line" style="border-bottom:1px solid #A5A5A5;">
+                        <div class="col-xs-12 col-sm-12">收款账户信息</div>
+                        <div class="col-xs-4 col-sm-4">收款银行</div>
+                        <div class="col-xs-4 col-sm-4">银行账号</div>
+                        <div class="col-xs-4 col-sm-4">收款人</div>
+
+                        <div class="col-xs-4 col-sm-4">{$specialist.id_no_bank_name}</div>
+                        <div class="col-xs-4 col-sm-4">{$specialist.id_no_bank_id}</div>
+                        <div class="col-xs-4 col-sm-4">{$specialist.id_no_bank_user}</div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 line" style="border-bottom:1px solid #eeeeee;">
+                        <div class="col-xs-2 col-sm-2">个人简介</div>
+                        <div class="col-xs-10 col-sm-10">
+                            {$row.intro}
+                        </div>
+                        
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 line" style="border-bottom:1px solid #eeeeee;">
+                        <div class="col-xs-2 col-sm-2">专家特色</div>
+                        <div class="col-xs-10 col-sm-10">
+                            <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                {foreach name="row.feature_json" item="vo"}
+                                {if $vo}
+                                <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                   
+                                    <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                        {$vo.name}
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                        {$vo.gender}
+                                    </div>
+                                    
+                                </div>
+                                {/if}
+                                {/foreach}
+                           </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 line" style="border-bottom:1px solid #eeeeee;">
+                        <div class="col-xs-2 col-sm-2">教育信息</div>
+                        <div class="col-xs-10 col-sm-10">
+                            <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                {foreach name="row.edu_json" item="vo"}
+                                {if $vo}
+                                <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                   
+                                    <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                        {$vo.degree_name}:{$vo.major_name}
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                        {$vo.school_name}({$vo.begin_time}-{$vo.end_time})
+                                    </div>
+                                    
+                                </div>
+                                {/if}
+                                {/foreach}
+                           </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 line" style="border-bottom:1px solid #eeeeee;">
+                        <div class="col-xs-2 col-sm-2">证书信息</div>
+                        <div class="col-xs-10 col-sm-10">
+                            <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                {foreach name="row.certificate_json" item="vo"}
+                                {if $vo}
+                                <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                    <div class="col-xs-6 col-sm-6" style="padding: 0">
+
+                                        <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                            {$vo.name}
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12" style="padding: 0">
+                                            {$vo.certifi_company}(<?php echo is_array($vo['certifitime'])?implode(' 到 ',$vo['certifitime']):$vo['certifitime'] ?>)
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6" style="padding: 0">
+                                        <a class="btn btn-primary btn-embossed" href="{$vo['certifiimage']|htmlentities|cdnurl}" target="_blank">查看</a>
+                                    </div>
+                                </div>
+                                {/if}
+                                {/foreach}
+                           </div>
+                        </div>
+                    </div>
+
+                <!--
+                <div class="form-group layer-footer">
+                    <label class="control-label col-xs-12 col-sm-2"></label>
+                    <div class="col-xs-12 col-sm-8" style="text-align: center">
+                        <button type="submit" class="btn btn-primary btn-embossed LevelSum">{:__('OK')}</button>
+                    </div>
+                </div>-->
+                </div>
+
+            <div class="tab-pane fade in" id="two">
+                <div class="widget-body no-padding">
+                    <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                        data-operate-edit=""
+                        data-operate-del=""
+                        width="100%">
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade in" id="three">
+                <div class="widget-body no-padding">
+                    <table id="table-order" class="table table-striped table-bordered table-hover table-nowrap"
+                        data-operate-edit=""
+                        data-operate-del=""
+                        width="100%">
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade in" id="four">
+                <div class="widget-body no-padding">
+                    <table id="table-invoice" class="table table-striped table-bordered table-hover table-nowrap"
+                        data-operate-edit=""
+                        data-operate-del=""
+                        width="100%">
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade in" id="five">
+                <div class="widget-body no-padding">
+                    <table id="table-sendinvoice" class="table table-striped table-bordered table-hover table-nowrap"
+                        data-operate-edit=""
+                        data-operate-del=""
+                        width="100%">
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade in" id="six">
+                <div class="widget-body no-padding">
+                    <table id="table-comment" class="table table-striped table-bordered table-hover table-nowrap"
+                           data-operate-edit=""
+                           data-operate-del=""
+                           width="100%">
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{if condition="$row.status eq 0"}
+<div class="form-group layer-footer">
+    <label class="control-label col-xs-12 col-sm-2"></label>
+    <div class="col-xs-12 col-sm-8 text-center">
+        <button type="submit" id="nopass" class="btn btn-default btn-embossed" style="margin-right:20px;">未通过</button>
+        <button type="submit" id="pass" class="btn btn-primary btn-embossed">审核通过</button>
+    </div>
+</div>
+{/if}
+<script id="categorytpl" type="text/html">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-inline" data-toggle="cxselect" data-selects="group,admin">
+                <select class="group form-control" name="group" data-url="example/bootstraptable/cxselect?type=group"></select>
+                <select class="admin form-control" name="admin_id" data-url="example/bootstraptable/cxselect?type=admin" data-query-name="group_id"></select>
+                <input type="hidden" class="operate" data-name="admin_id" value="=" />
+            </div>
+        </div>
+    </div>
+</script>
+<style type="text/css">
+.avatar-img {
+  display: inline-block;
+  box-sizing: content-box;
+  color: #fff;
+  text-align: center;
+  vertical-align: top;
+  background-color: #e8ecf3;
+  font-weight: normal;
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  font-size: 24px;
+  line-height: 48px;
+}
+.avatar-img {
+  font-size: 0;
+}
+.avatar-img img {
+  border-radius: 48px;
+  width: 48px;
+  height: 48px;
+}
+
+.line{
+    line-height: 50px;
+    margin-bottom: 10px;
+}
+.id-img{
+    height: 50px;
+    float: left;
+}
+
+</style>
+
+<script id="customformtpl" type="text/html">
+    <!--form表单必须添加form-commsearch这个类-->
+    <form action="" class="form-commonsearch">
+        <div style="border-radius:2px;margin-bottom:10px;background:#f5f5f5;padding:15px 20px;">
+            
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">标签筛选</label>
+                        <input type="hidden" class="operate" data-name="tag" value="in"/>
+                        <div>
+                            <input type="text" class="form-control tag" name="tag" value="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">需求状态</label>
+                        <input type="hidden" class="operate" data-name="status" value="in"/>
+                        <div>
+                        <!--给select一个固定的高度-->
+                        <!--@formatter:off-->
+                        <select id="c-status" class="form-control selectpicker" multiple name="status" style="height:31px;">
+                            {foreach name="requirementStatusList" item="vo"}
+                            <option value="{$key}" selected>{$vo}</option>
+                            {/foreach}
+                        </select>
+                        <!--@formatter:on-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">输入需求编号、需求标题</label>
+                        <!--隐式的operate操作符，必须携带一个class为operate隐藏的文本框,且它的data-name="字段",值为操作符-->
+                        <input class="operate" type="hidden" data-name="title" value="="/>
+                        <div>
+                        <input class="form-control" id="keywords" type="text" name="title" placeholder="输入需求编号、需求标题" value=""/>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">发布时间</label>
+                        <input type="hidden" class="operate" data-name="createtime" value="RANGE"/>
+                        <div>
+                        <input type="text" class="form-control datetimerange" name="createtime" value=""/>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="submit" class="btn btn-success btn-block" value="提交"/>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="reset" class="btn btn-primary btn-block" value="重置"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script id="invoicecustomformtpl" type="text/html">
+        <!--form表单必须添加form-commsearch这个类-->
+        <form action="" class="form-commonsearch">
+            <div style="border-radius:2px;margin-bottom:10px;background:#f5f5f5;padding:15px 20px;">
+                <h4>搜索管理</h4>
+                <hr>
+                <div class="row">
+
+
+
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">订单编号</label>
+                            <input type="hidden" class="operate" data-name="sn" value="RANGE"/>
+                            <div>
+                                <input type="text" class="form-control" name="sn" value=""/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">申请时间</label>
+                            <input type="hidden" class="operate" data-name="createtime" value="RANGE"/>
+                            <div>
+                                <input type="text" class="form-control datetimerange" name="createtime" value=""/>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label"></label>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input type="submit" class="btn btn-success btn-block" value="提交"/>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="reset" class="btn btn-primary btn-block" value="重置"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+</script>
+
+
+<script id="ordercustomformtpl" type="text/html">
+    <!--form表单必须添加form-commsearch这个类-->
+    <form action="" class="form-commonsearch">
+        <div style="border-radius:2px;margin-bottom:10px;background:#f5f5f5;padding:15px 20px;">
+           
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">输入订单编号、订单标题</label>
+                        <!--隐式的operate操作符，必须携带一个class为operate隐藏的文本框,且它的data-name="字段",值为操作符-->
+                        <input class="operate" type="hidden" data-name="title" value="="/>
+                        <div>
+                            <input class="form-control" id="keywords" type="text" name="title" placeholder="输入订单编号、订单标题" value=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">订单类型</label>
+                        <input type="hidden" class="operate" data-name="specialist_source" value="in"/>
+                        <div>
+                            <!--给select一个固定的高度-->
+                            <!--@formatter:off-->
+                            <select id="c-specialist_source" class="form-control selectpicker" multiple name="specialist_source" style="height:31px;">
+                                <option value="0" selected>未匹配</option>
+                                <option value="1" selected>推荐</option>
+                                <option value="2" selected>预约申请</option>
+                                <option value="3" selected>专家主动申请</option>
+                            </select>
+                            <!--@formatter:on-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+                    <!--这里添加68px是为了避免刷新时出现元素错位闪屏-->
+                    <div class="form-group">
+                        <label class="control-label">订单状态</label>
+                        <input type="hidden" class="operate" data-name="status" value="in"/>
+                        <div>
+                        <!--给select一个固定的高度 状态:0-待收款,1-待审核,2-服务中,3-待验收,4-待跟进,5-已完成,6-已取消,7-未确认收款-->
+                        <!--@formatter:off-->
+                        <select id="c-status" class="form-control selectpicker" multiple name="status" style="height:31px;">
+                            <option value="0" selected>待收款</option>
+                            <option value="1" selected>待审核</option>
+                            <option value="2" selected>服务中</option>
+                            <option value="3" selected>待验收</option>
+                            <option value="4" selected>待跟进</option>
+                            <option value="5" selected>已完成</option>
+                            <option value="6" selected>已取消</option>
+                            <option value="8" selected>异常待处理</option>
+                            <option value="9" selected>已终止</option>
+                        </select>
+                        <!--@formatter:on-->
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">创建时间</label>
+                        <input type="hidden" class="operate" data-name="createtime" value="RANGE"/>
+                        <div>
+                        <input type="text" class="form-control datetimerange" name="createtime" value=""/>
+                        </div>
+                    </div>
+                </div>-->
+                
+                
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="submit" class="btn btn-success btn-block" value="查询"/>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="reset" class="btn btn-primary btn-block" value="重置"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script id="commentcustomformtpl" type="text/html">
+    <!--form表单必须添加form-commsearch这个类-->
+    <form action="" class="form-commonsearch">
+        <div style="border-radius:2px;margin-bottom:10px;background:#f5f5f5;padding:15px 20px;">
+            <h4>搜索管理</h4>
+            <hr>
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+                    <div class="form-group">
+                        <label class="control-label">评价类型</label>
+                        <input type="hidden" class="operate" data-name="comment_type" value="="/>
+                        <div>
+                            <!--给select一个固定的高度-->
+                            <!--@formatter:off-->
+                            <select id="c-comment_type" class="form-control selectpicker" name="comment_type" style="height:31px;">
+                                <option value="" selected>全部</option>
+                                <option value="主动评价">主动评价</option>
+                                <option value="被评价" >被评价</option>
+                            </select>
+                            <!--@formatter:on-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">评价时间</label>
+                        <input type="hidden" class="operate" data-name="createtime" value="RANGE"/>
+                        <div>
+                            <input type="text" class="form-control datetimerange" name="createtime" value=""/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-6 col-md-4" style="min-height:68px;">
+                    <div class="form-group">
+                        <label class="control-label">好中差</label>
+                        <input type="hidden" class="operate" data-name="comment" value="="/>
+                        <div>
+                            <!--给select一个固定的高度-->
+                            <!--@formatter:off-->
+                            <select id="c-comment" class="form-control selectpicker" multiple name="comment" style="height:31px;">
+                                <option value="好评" selected>好评</option>
+                                <option value="中评" selected>中评</option>
+                                <option value="差评" selected>差评</option>
+                            </select>
+                            <!--@formatter:on-->
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="submit" class="btn btn-success btn-block" value="提交"/>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="reset" class="btn btn-primary btn-block" value="重置"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>

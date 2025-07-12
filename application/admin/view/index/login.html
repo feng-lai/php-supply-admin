@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/meta" /}
+
+    <style type="text/css">
+        body {
+            color: #999;
+            background-color: #f1f4fd;
+            background-size: cover;
+        }
+
+        a {
+            color: #444;
+        }
+
+
+        .login-screen {
+            max-width: 430px;
+            padding: 0;
+            margin: 100px auto 0 auto;
+
+        }
+
+        .login-screen .well {
+            border-radius: 3px;
+            -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 1);
+            border: none;
+            /*overflow: hidden;*/
+            padding: 0;
+        }
+
+        @media (max-width: 767px) {
+            .login-screen {
+                padding: 0 20px;
+            }
+        }
+
+        .profile-img-card {
+            width: 100px;
+            height: 100px;
+            display: block;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            margin: -93px auto 30px;
+            border: 5px solid #fff;
+        }
+
+        .profile-name-card {
+            text-align: center;
+        }
+
+        .login-head {
+            background: #899fe1;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .login-form {
+            padding: 40px 30px;
+            position: relative;
+            z-index: 99;
+        }
+
+        #login-form {
+            margin-top: 20px;
+        }
+
+        #login-form .input-group {
+            margin-bottom: 15px;
+        }
+
+        #login-form .form-control {
+            font-size: 13px;
+        }
+
+    </style>
+    <!--@formatter:off-->
+    {if $background}
+        <style type="text/css">
+            body{
+                background-image: url('{$background}');
+            }
+        </style>
+    {/if}
+    <!--@formatter:on-->
+</head>
+<body>
+<div class="container">
+    <div class="login-wrapper">
+        <div class="login-screen">
+            <div class="well">
+                <div class="login-head">
+                    <img src="__CDN__/assets/img/login-head.png" style="width:100%;"/>
+                </div>
+                <div class="login-form">
+                    <img id="profile-img" class="profile-img-card" src="__CDN__/assets/img/avatar.png"/>
+                    <p id="profile-name" class="profile-name-card"></p>
+
+                    <form action="" method="post" id="login-form">
+                        <!--@AdminLoginFormBegin-->
+                        <div id="errtips" class="hide"></div>
+                        {:token()}
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
+                            <input type="text" class="form-control" id="pd-form-username" placeholder="{:__('Username')}" name="username" autocomplete="off" value="" data-rule="{:__('Username')}:required;username"/>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></div>
+                            <input type="password" class="form-control" id="pd-form-password" placeholder="{:__('Password')}" name="password" autocomplete="off" value="" data-rule="{:__('Password')}:required;password"/>
+                        </div>
+
+
+                        <!--@CaptchaBegin-->
+                        {if $Think.config.fastadmin.login_captcha}
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></div>
+                            <input type="text" name="captcha" class="form-control" placeholder="{:__('Captcha')}" data-rule="{:__('Captcha')}:required;length({$Think.config.captcha.length})" autocomplete="off"/>
+                            <span class="input-group-addon" style="padding:0;border:none;cursor:pointer;">
+                                    <img src="{:rtrim('__PUBLIC__', '/')}/index.php?s=/captcha" width="100" height="30" onclick="this.src = '{:rtrim('__PUBLIC__', '/')}/index.php?s=/captcha&r=' + Math.random();"/>
+                            </span>
+                        </div>
+                        {/if}
+                        <!--@CaptchaEnd-->
+                        <div class="form-group checkbox">
+                            <label class="inline" for="keeplogin" data-toggle="tooltip" title="{:__('The duration of the session is %s hours', $keeyloginhours)}">
+                                <input type="checkbox" name="keeplogin" id="keeplogin" value="1"/>
+                                {:__('Keep login')}
+                            </label>
+                            <div class="pull-right"><a href="javascript:;" class="btn-forgot">忘记密码</a></div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-lg btn-block" style="background:#708eea;">{:__('Sign in')}</button>
+                        </div>
+                        <!--@AdminLoginFormEnd-->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="resetpwdtpl">
+    <form id="resetpwd-form" class="form-horizontal form-layer" method="POST" action="{:url('index/resetpwd')}">
+        <div class="form-body">
+            <input type="hidden" name="action" value="resetpwd"/>
+<!--            <div class="form-group">-->
+<!--                <label class="control-label col-xs-12 col-sm-3">类型:</label>-->
+<!--                <div class="col-xs-12 col-sm-8">-->
+<!--                    <div class="radio">-->
+<!--                        <label for="type-email"><input id="type-email" checked="checked" name="type" data-send-url="{:url('index/send')}" data-check-url="{:url('index/check_ems_correct')}" type="radio" value="email">通过邮箱</label>-->
+<!--                        <label for="type-mobile"><input id="type-mobile" name="type" type="radio" data-send-url="{:url('index/send')}" data-check-url="{:url('index/check_sms_correct')}" value="mobile">通过手机重置</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="form-group" data-type="email">-->
+<!--                <label for="email" class="control-label col-xs-12 col-sm-3">{:__('Email')}:</label>-->
+<!--                <div class="col-xs-12 col-sm-8">-->
+<!--                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required(#type-email:checked);email;remote({:url('index/check_email_exist')}, event=resetpwd, id=0)" placeholder="">-->
+<!--                    <span class="msg-box"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="form-group " data-type="mobile">
+                <label for="mobile" class="control-label col-xs-12 col-sm-3">{:__('Mobile')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required(#type-mobile:checked);mobile;remote({:url('index/check_mobile_exist')}, event=resetpwd, id=0)" placeholder="">
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="captcha" class="control-label col-xs-12 col-sm-3">{:__('Captcha')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="input-group">
+                        <input type="text" name="captchaa" class="form-control" data-rule="required;length({$Think.config.captcha.length});digits;remote({:url('index/check_sms_correct')}, event=resetpwd, mobile:#mobile)"/>
+                        <span class="input-group-btn" style="padding:0;border:none;">
+                            <a href="javascript:;" class="btn btn-primary btn-captcha" data-url="{:url('index/send')}" data-type="mobile" data-event="resetpwd">发送验证码</a>
+                        </span>
+                    </div>
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="newpassword" class="control-label col-xs-12 col-sm-3">新密码:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input type="password" class="form-control" id="newpassword" name="newpassword" value="" data-rule="required;password" placeholder="">
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-footer">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-3">
+                <button type="submit" class="btn btn-md btn-primary">{:__('Ok')}</button>
+            </div>
+        </div>
+    </form>
+</script>
+{include file="common/script" /}
+</body>
+</html>
+
+
