@@ -75,11 +75,10 @@ Default credentials (if available in DB seed):
 ```
 php-supply-admin/
 ├── application/     # Main application logic (controllers, models, views)
-├── public/          # Web root directory
-├── config/          # Configuration files
-├── runtime/         # Temporary storage (logs, cache)
-├── static/          # Static resources (CSS, JS, images)
-└── database/        # (optional) Database schema or seed files
+├── addons/          # Web root directory
+├── extend/          # Configuration files
+├── public/         # Static resources (CSS, JS, images)
+└── vendor/        # (optional) Database schema or seed files
 ```
 
 ## 📌 Notes
