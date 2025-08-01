@@ -1,3 +1,5 @@
+[English](README.md)  [日本語](README-jp.md)[Español](README-es.md) 
+[العربية](README-ar.md)  [Português](README-pt.md)
 # PHP Supply & Demand Admin Platform
 
 This is a lightweight supply and demand management platform built with PHP. It provides a backend administration system for managing product supply and demand information, user submissions, and basic business operations. Designed for small and medium enterprises, this system helps streamline the matching of supply and demand resources.
