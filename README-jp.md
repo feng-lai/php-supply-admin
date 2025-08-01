@@ -1,3 +1,5 @@
+[English](README.md)  [日本語](README-jp.md)[Español](README-es.md) 
+[العربية](README-ar.md)  [Português](README-pt.md)
 #### PHP Supply & Demand Admin Platform
 
 これは PHP で構築された軽量な供給と需要管理プラットフォームです。製品の供給と需要情報、ユーザー投稿、基本的な事業運営を管理するためのバックエンド管理システムを提供します。小中企業向けに設計されており、供給と需要リソースのマッチングを合理化します。
