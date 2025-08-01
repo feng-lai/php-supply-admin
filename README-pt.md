@@ -1,3 +1,5 @@
+[English](README.md)  [日本語](README-jp.md)[Español](README-es.md) 
+[العربية](README-ar.md)  [Português](README-pt.md)
 #### PHP Supply & Demand Admin Platform
 
 **PHP Supply & Demand Admin Platform** é uma plataforma de gerenciamento de oferta e demanda leve construída usando PHP. Fornecer um sistema de administração backend para gerenciar informações de oferta e demanda de produtos, submissões de usuários e operações básicas de negócios. Projetada para pequenas e médias empresas, esta plataforma ajuda a simplificar a correspondência de recursos de oferta e demanda.
